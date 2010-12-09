@@ -53,7 +53,7 @@ def onLoadSub(event):#Bugea epicamente
     else:
         print "no activado"
         
-
+        
 
 #---Eventos de reproduccion del video---
 

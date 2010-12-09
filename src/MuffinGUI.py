@@ -59,6 +59,7 @@ class MuffinFrame(wx.Frame):
         # begin wxGlade: MuffinFrame.__set_properties
         self.SetTitle("Muffin Translator - PreAlpha version")
         self.SetSize((800, 600))
+        self.SetMinSize((800, 600))
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
         self.botonStop.SetSize(self.botonStop.GetBestSize())
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
@@ -77,7 +78,7 @@ class MuffinFrame(wx.Frame):
         ContenedorControles = wx.BoxSizer(wx.VERTICAL)
         Controles = wx.BoxSizer(wx.HORIZONTAL)
         ContVolumen = wx.StaticBoxSizer(self.ContVolumen_staticbox, wx.VERTICAL)
-        ContenedorMplayer.Add(self.VideoMplayer, 4, wx.EXPAND, 0)
+        ContenedorMplayer.Add(self.VideoMplayer, 4, wx.EXPAND, 0)#
         ContenedorControles.Add(self.PosicionVideo, 0, wx.EXPAND, 0)
         Controles.Add(self.botonPlay, 0, 0, 0)
         Controles.Add(self.botonStop, 0, 0, 0)
