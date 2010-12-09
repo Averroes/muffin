@@ -4,7 +4,7 @@ Created on 6/12/2010
 @author: erunamo
 '''
 import wx
-import os
+import os, sys
 import MplayerCtrl as mpc
 
 #----Variables globales----
@@ -37,6 +37,7 @@ def onLoadFile(event):
     if dlg.ShowModal() == wx.ID_OK:
         path = dlg.GetPath()
         path = path.replace('\\','/')
+        path = path.encode(sys.getfilesystemencoding())
         __openVideo(path)
         dlg.Destroy()
 
