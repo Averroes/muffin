@@ -27,3 +27,6 @@ Muffin necesita para funcionar:
  -wxPython 2.8
  -Mplayer (instado desde repositorio en Linux; el .exe en windows)
  -MplayerCtrl
+ 
+== LICENCIA ==
+GNU General Public License v3
