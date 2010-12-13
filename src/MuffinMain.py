@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 '''
 Created on 6/12/2010
 
@@ -9,7 +10,7 @@ import MuffinGUI
 
 if __name__ == '__main__':
     '''
-    Main de Muffin, aqui se inicializa la ventana.
+    Main de Muffin, aquí se inicializa la ventana.
     '''
     print 'Iniciando Muffin Translator'
     app = wx.PySimpleApp(0)
