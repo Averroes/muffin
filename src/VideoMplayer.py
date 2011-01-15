@@ -17,6 +17,8 @@ else:
 
 def initVideo(parent):
     global video_mplayer_panel
+    global padre
+    padre=parent
     video_mplayer_panel=mpc.MplayerCtrl(parent, -1, mplayer_path)
     #video_mplayer_panel.SetDimensions(0,0,320,180)
     return video_mplayer_panel
@@ -64,8 +66,7 @@ def onPlayVideo(event):
     if proceso == False :
         print "no hay proceso"
         print video_path
-        video_mplayer_panel.Start(video_path)
-    
+        video_mplayer_panel.Start(video_path)    
     elif pausa == True :
         print "pausa/play normal"
         video_mplayer_panel.Pause()#despausa
@@ -85,6 +86,38 @@ def onBackVideo(event):
     
 def onKeyPuase(event):
     print "tecla apretada..."
+    
+    
+    
+
+#Sección de pruebas ALPHA
+def imprimeCosas(event):
+    if video_mplayer_panel.process_alive:
+        a=(video_mplayer_panel.GetProperty('width'), video_mplayer_panel.GetProperty('height') )
+        print ''
+        print video_mplayer_panel.GetMaxHeight()
+        print video_mplayer_panel.GetMinHeight()
+        print video_mplayer_panel.GetMaxWidth()
+        print video_mplayer_panel.GetMinWidth()
+        print video_mplayer_panel.GetBestSizeTuple()
+        print video_mplayer_panel.GetSizeTuple()
+        tupla_sizer= padre.GetSizeTuple()
+        calculo(a,tupla_sizer)
+        
+        
+        
+def calculo(_a,_b):
+    (w,e)=_a
+    (x,y)=_b
+    prop = float(w)/float(e)
+    print prop
+    if (x/prop)<=y:
+        video_mplayer_panel.SetSize((x,x/prop))
+    else:
+        video_mplayer_panel.SetSize((y,y*prop))
+        
+        
+        
     
     
 

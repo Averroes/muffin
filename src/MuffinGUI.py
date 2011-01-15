@@ -41,6 +41,7 @@ class MuffinFrame(wx.Frame):
         self.SetMenuBar(self.Muffin_menubar)
         # Menu Bar end
         
+        # Parte del Video
         self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo) #wx.Panel(self.panelVideo, -1)
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
         self.botonPlay = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("play.png", wx.BITMAP_TYPE_ANY))
@@ -48,6 +49,8 @@ class MuffinFrame(wx.Frame):
         self.botonAtras = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("atras.png", wx.BITMAP_TYPE_ANY))
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("adelante.png", wx.BITMAP_TYPE_ANY))
         self.volumen = wx.Slider(self.panelVideo, -1, 0, 0, 100)
+        # Fin Parte del Video
+        
         self.panelDiccionario1 = wx.Panel(self.pestanaDiccionarios, -1)
         self.texto = wx.TextCtrl(self.panelTexto, -1, """Actor 1:    Well do I understand your speech, yet few strangers do so.\n        Why then do you not speak in the Common Tongue,\n        as        is the custom in the West, if you wish to be answered?\n# TL check: The above seems to be a        quote from the lord of the rings, look it up later\nActor 2:What are you babbling about?""", style=wx.TE_MULTILINE|wx.HSCROLL)
 
@@ -104,6 +107,7 @@ class MuffinFrame(wx.Frame):
         self.Layout()
         self.Centre()
         # end wxGlade
+        self.tamanoCosa=ContenedorMplayer.GetSizeTuple()
         
     def __controlEventos(self):
         self.botonPlay.Bind(wx.EVT_BUTTON, VideoMplayer.onPlayVideo)
@@ -112,6 +116,7 @@ class MuffinFrame(wx.Frame):
         self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
         
         #self.texto.Bind(wx.KeyEvent.GetKeyCode()==wx.k, VideoMplayer.onKeyPuase)
+        #self.Bind(wx.EVT_SIZE, VideoMplayer.imprimeCosas)
 
 # end of class MuffinFrame
 
