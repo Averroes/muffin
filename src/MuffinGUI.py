@@ -112,17 +112,16 @@ class MuffinFrame(wx.Frame):
         self.Layout()
         self.Centre()
         # end wxGlade
-        self.tamanoCosa=ContenedorMplayer.GetSizeTuple()
+        
         
     def __controlEventos(self):
         self.botonPlay.Bind(wx.EVT_BUTTON, VideoMplayer.onPlayVideo)
         self.botonStop.Bind(wx.EVT_BUTTON, VideoMplayer.onStopVideo)
         self.botonAdelante.Bind(wx.EVT_BUTTON, VideoMplayer.onAdvanceVideo)
         self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
+
+        self.texto.Bind(wx.EVT_KEY_UP, VideoMplayer.onKeyPuase)
         
-        
-        #self.texto.Bind(wx.KeyEvent.GetKeyCode()==wx.k, VideoMplayer.onKeyPuase)
-        #self.Bind(wx.EVT_SIZE, VideoMplayer.imprimeCosas)
 
 # end of class MuffinFrame
 

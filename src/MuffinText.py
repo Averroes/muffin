@@ -8,9 +8,8 @@ import os, sys
 
 class MuffinText(wx.TextCtrl):
     '''
-    classdocs
+    classdocs: Clase encargada del area de texto
     '''
-
 
     def __init__(self, parent):
         '''
@@ -25,7 +24,7 @@ class MuffinText(wx.TextCtrl):
 Actor 1: Well do I understand your speech, yet few strangers do so.
          Why then do you not speak in the Common Tongue,
          as is the custom in the West, if you wish to be answered?
-# TL check: The above seems to be a quote from the lord of the rings, look it up later
+         # TL check: The above seems to be a quote from the lord of the rings, look it up later
 Actor 2: What are you babbling about?"""
         self.__parent=parent
         
@@ -35,18 +34,18 @@ Actor 2: What are you babbling about?"""
     def __abrir_texto(self,_path):
         file=open(_path,"r")
         texto = file.read()
-        #self.Create(self.__parent,value=texto, style=wx.TE_MULTILINE|wx.HSCROLL)
+        #self.Create(self.__parent,value=texto, style=wx.TE_MULTILINE|wx.HSCROLL)#NO
         self.SetValue(texto)
-
+        
            
         
     def __guardar_texto(self,_doc_path):
-        file=open(_doc_path,"w")#sobre escribe
+        file=open(_doc_path,"w")#sobre-escribe
         texto=self.GetString(0, -1)#de 0 a infinito
         file.write(texto)
         file.close()
    
-    #evento para abrir Archivos
+    #Evento para abrir Archivos
     def onLoadFile(self, event):
         #if self.tipo_nuevo:
             dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
@@ -59,6 +58,7 @@ Actor 2: What are you babbling about?"""
                 self.__abrir_texto(path)
                 dlg.Destroy()
                 
+    #Evento para guardar Archivos
     def onSaveFile(self,event):
             dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
@@ -70,3 +70,7 @@ Actor 2: What are you babbling about?"""
                 self.__guardar_texto(path)
                 dlg.Destroy()
                 
+    
+    
+    
+    

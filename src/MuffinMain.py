@@ -17,7 +17,7 @@ if __name__ == '__main__':
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()
     Muffin= MuffinGUI.MuffinFrame (None, -1, "")
-    app.SetTopWindow(Muffin )
+    app.SetTopWindow(Muffin)
     Muffin.Show()
     app.MainLoop()
     print 'Finalizando Muffin Translator'
