@@ -6,7 +6,7 @@ Created on 6/12/2010
 '''
 import wx
 import VideoMplayer
-
+import MuffinText
 
 class MuffinFrame(wx.Frame):
     '''
@@ -25,12 +25,19 @@ class MuffinFrame(wx.Frame):
         self.panelVideo = wx.Panel(self, -1)
         self.ContVolumen_staticbox = wx.StaticBox(self.panelVideo, -1, "Volumen")
         
+        self.texto = MuffinText.MuffinText(self.panelTexto)
+        self.panelDiccionario1 = wx.Panel(self.pestanaDiccionarios, -1)
+        
         # Menu Bar
         self.Muffin_menubar = wx.MenuBar()
         
         wxglade_tmp_menu = wx.Menu()
-        wxAbrir=wxglade_tmp_menu.Append(wx.NewId(), "Abrir", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, VideoMplayer.onLoadFile, wxAbrir)
+        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), "Abrir video", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, VideoMplayer.onLoadFile, wxAbrirVideo)
+        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), "Abrir texto", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
+        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
         self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
         
         wxglade_tmp_menu = wx.Menu()
@@ -50,10 +57,8 @@ class MuffinFrame(wx.Frame):
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("adelante.png", wx.BITMAP_TYPE_ANY))
         self.volumen = wx.Slider(self.panelVideo, -1, 0, 0, 100)
         # Fin Parte del Video
+         
         
-        self.panelDiccionario1 = wx.Panel(self.pestanaDiccionarios, -1)
-        self.texto = wx.TextCtrl(self.panelTexto, -1, """Actor 1:    Well do I understand your speech, yet few strangers do so.\n        Why then do you not speak in the Common Tongue,\n        as        is the custom in the West, if you wish to be answered?\n# TL check: The above seems to be a        quote from the lord of the rings, look it up later\nActor 2:What are you babbling about?""", style=wx.TE_MULTILINE|wx.HSCROLL)
-
         self.__set_properties()
         self.__do_layout()
         self.__controlEventos()
@@ -114,6 +119,7 @@ class MuffinFrame(wx.Frame):
         self.botonStop.Bind(wx.EVT_BUTTON, VideoMplayer.onStopVideo)
         self.botonAdelante.Bind(wx.EVT_BUTTON, VideoMplayer.onAdvanceVideo)
         self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
+        
         
         #self.texto.Bind(wx.KeyEvent.GetKeyCode()==wx.k, VideoMplayer.onKeyPuase)
         #self.Bind(wx.EVT_SIZE, VideoMplayer.imprimeCosas)
