@@ -27,7 +27,7 @@ def __openVideo(video_path2):
     global video_path
     video_path=video_path2
     print video_path
-    video_mplayer_panel.Start(video_path, ("-cache-min 20",) )
+    video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
     video_mplayer_panel.Loadfile(video_path)
     #video_mplayer_panel.FrameDrop(0)
     return
@@ -52,7 +52,7 @@ def onLoadSub(event):
     print "cargando sub?"
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, ("-ass",) )
-    video_mplayer_panel.SubSource('2')
+    #video_mplayer_panel.SubSource('2')
     
     if video_mplayer_panel.GetSubVisibility():
         print "Activado"
@@ -91,10 +91,10 @@ def onBackVideo(event):
     
     
 def onKeyPuase(event):
-    if event.ControlDown():
+    if event.AltDown():
         print "tecla CTRL desapretada..."
         onPlayVideo(event)
-    
+
 
         
         
