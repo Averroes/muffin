@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 '''
 Created on 15/01/2011
 
@@ -25,7 +26,11 @@ Actor 1: Well do I understand your speech, yet few strangers do so.
          Why then do you not speak in the Common Tongue,
          as is the custom in the West, if you wish to be answered?
          # TL check: The above seems to be a quote from the lord of the rings, look it up later
-Actor 2: What are you babbling about?"""
+Actor 2: What are you babbling about?
+
+NOTA: Use la tecla 'ALT' para pausar y despausar el video.
+      Puede usar las teclas F1 y F2 para ir 2 segundos atras o adelante en el video
+      #NO OLVIDES REPORTAR LOS ERRORES"""
         self.__parent=parent
         
         wx.TextCtrl.__init__(self, parent, -1, texto_inicial, style=wx.TE_MULTILINE|wx.HSCROLL)

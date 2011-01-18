@@ -13,6 +13,7 @@ if os.name == 'nt':
     mplayer_path="mplayer.exe"
 else:
     mplayer_path="mplayer"
+    mpc.VO_DRIVER="gl,"+mpc.VO_DRIVER
 
 
 def initVideo(parent):
@@ -53,11 +54,11 @@ def onLoadSub(event):
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, ("-ass",) )
     #video_mplayer_panel.SubSource('2')
-    
+    print mpc.VO_DRIVER
     if video_mplayer_panel.GetSubVisibility():
         print "Activado"
     else:
-        print "no activado"
+        print "No activado"
         
         
 
@@ -65,7 +66,7 @@ def onLoadSub(event):
 
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
-        print "no hay proceso"
+        print "¡¡no hay proceso!!"
         print video_path
         video_mplayer_panel.Start(video_path)    
     else:
@@ -75,7 +76,7 @@ def onPlayVideo(event):
 
 def onStopVideo(event):
     #playing=video_mplayer_panel.playing
-    if video_mplayer_panel.playing :
+    #if video_mplayer_panel.playing :
         #video_mplayer_panel.Stop()
         while not video_mplayer_panel.Quit():
             pass
@@ -84,26 +85,19 @@ def onStopVideo(event):
 
 def onAdvanceVideo(event):
     video_mplayer_panel.Seek('5')
-    
 
 def onBackVideo(event):
     video_mplayer_panel.Seek('-5')
     
     
 def onKeyPuase(event):
+    #print event.GetKeyCode()
     if event.AltDown():
-        print "tecla CTRL desapretada..."
+        print "**tecla ALT desapretada...**"
         onPlayVideo(event)
-
-
-        
-        
-        
-    
-    
-
-    
-    
-    
-    
-    
+    elif event.GetKeyCode() == 340:#tecla F1
+        onBackVideo(event)
+    elif event.GetKeyCode() == 341:#tecla F2
+        onAdvanceVideo(event)
+    else:
+        event.Skip()

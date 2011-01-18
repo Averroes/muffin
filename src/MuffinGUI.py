@@ -51,10 +51,10 @@ class MuffinFrame(wx.Frame):
         # Parte del Video
         self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo) #wx.Panel(self.panelVideo, -1)
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
-        self.botonPlay = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("play.png", wx.BITMAP_TYPE_ANY))
-        self.botonStop = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("stop.png", wx.BITMAP_TYPE_ANY))
-        self.botonAtras = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("atras.png", wx.BITMAP_TYPE_ANY))
-        self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("adelante.png", wx.BITMAP_TYPE_ANY))
+        self.botonPlay = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
+        self.botonStop = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/stop.png", wx.BITMAP_TYPE_ANY))
+        self.botonAtras = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
+        self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
         self.volumen = wx.Slider(self.panelVideo, -1, 0, 0, 100)
         # Fin Parte del Video
          
