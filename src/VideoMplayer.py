@@ -83,17 +83,17 @@ def onStopVideo(event):
         print "#Video Detenido"
         
 
-def onAdvanceVideo(event):
-    video_mplayer_panel.Seek('5')
+def onAdvanceVideo(event, time=5):
+    video_mplayer_panel.Seek(str(time))
 
-def onBackVideo(event):
-    video_mplayer_panel.Seek('-5')
+def onBackVideo(event, time=-5):
+    video_mplayer_panel.Seek(str(time))
     
     
 def onKeyPuase(event):
     #print event.GetKeyCode()
-    if event.AltDown():
-        print "**tecla ALT desapretada...**"
+    if event.GetKeyCode() == 27:#tecla ESC
+        print "**Pausa, tecla ESC desapretada...**"
         onPlayVideo(event)
     elif event.GetKeyCode() == 340:#tecla F1
         onBackVideo(event)

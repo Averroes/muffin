@@ -28,8 +28,8 @@ Actor 1: Well do I understand your speech, yet few strangers do so.
          # TL check: The above seems to be a quote from the lord of the rings, look it up later
 Actor 2: What are you babbling about?
 
-NOTA: Use la tecla 'ALT' para pausar y despausar el video.
-      Puede usar las teclas F1 y F2 para ir 2 segundos atras o adelante en el video
+NOTA: Use la tecla 'ESC' para pausar y despausar el video.
+      Puede usar las teclas F1 y F2 para ir 5 segundos atras o adelante en el video
       #NO OLVIDES REPORTAR LOS ERRORES"""
         self.__parent=parent
         
