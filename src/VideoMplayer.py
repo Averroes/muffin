@@ -38,27 +38,28 @@ def __openVideo(video_path2):
 #---Eventos de carga---
 
 def onLoadFile(event):
-    dlg = wx.FileDialog(None, message="Seleccione un archivo de video",
+    dlg = wx.FileDialog(None, message=u"Seleccione un archivo de video",
                         defaultDir=os.getcwd(), defaultFile="",
                         style=wx.OPEN | wx.CHANGE_DIR )
     if dlg.ShowModal() == wx.ID_OK:
         path = dlg.GetPath()
         path = path.replace('\\','/')
-        path = path.encode(sys.getfilesystemencoding())
+        #path = path.encode(sys.getfilesystemencoding())
+        path=str(path)
         __openVideo(path)
         dlg.Destroy()
         
 
 def onLoadSub(event):
-    print "cargando sub?"
+    print u"cargando sub?"
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, ("-ass",) )
     #video_mplayer_panel.SubSource('2')
     print mpc.VO_DRIVER
     if video_mplayer_panel.GetSubVisibility():
-        print "Activado"
+        print u"Activado"
     else:
-        print "No activado"
+        print u"No activado"
         
         
 
@@ -66,11 +67,11 @@ def onLoadSub(event):
 
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
-        print "¡¡no hay proceso!!"
+        print u"¡¡no hay proceso!!"
         print video_path
         video_mplayer_panel.Start(video_path)    
     else:
-        print ">>pausa/play normal"
+        print u">>pausa/play normal"
         video_mplayer_panel.Pause()#despausa
         
 
@@ -80,7 +81,7 @@ def onStopVideo(event):
         #video_mplayer_panel.Stop()
         while not video_mplayer_panel.Quit():
             pass
-        print "#Video Detenido"
+        print u"#Video Detenido"
         
 
 def onAdvanceVideo(event, time=5):
@@ -93,7 +94,7 @@ def onBackVideo(event, time=-5):
 def onKeyPuase(event):
     #print event.GetKeyCode()
     if event.GetKeyCode() == 27:#tecla ESC
-        print "**Pausa, tecla ESC desapretada...**"
+        print u"**Pausa, tecla ESC desapretada...**"
         onPlayVideo(event)
     elif event.GetKeyCode() == 340:#tecla F1
         onBackVideo(event)

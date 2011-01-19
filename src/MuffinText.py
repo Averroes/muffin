@@ -5,7 +5,7 @@ Created on 15/01/2011
 @author: erunamo
 '''
 import wx
-import os, sys
+import os#, sys
 
 class MuffinText(wx.TextCtrl):
     '''
@@ -37,41 +37,44 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
         
 
     def __abrir_texto(self,_path):
-        file=open(_path,"r")
+        file=open(_path,"rU")
         texto = file.read()
         #self.Create(self.__parent,value=texto, style=wx.TE_MULTILINE|wx.HSCROLL)#NO
         self.SetValue(texto)
-        
+        file.close()
            
         
     def __guardar_texto(self,_doc_path):
-        file=open(_doc_path,"w")#sobre-escribe
-        texto=self.GetString(0, -1)#de 0 a infinito
-        file.write(texto)
-        file.close()
-   
+        #file=open(_doc_path,"w")#sobre-escribe
+        #texto=unicode(self.GetString(0, -1))#de 0 a infinito
+        #file.write(texto)
+        self.SaveFile(_doc_path)#soluciona problema con unicode
+        #file.close()
+        print u"»»archivo guardado correctamente"
+        
+        
     #Evento para abrir Archivos
     def onLoadFile(self, event):
         #if self.tipo_nuevo:
-            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
+            dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.OPEN | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
                 path = dlg.GetPath()
                 path = path.replace('\\','/')
-                path = path.encode(sys.getfilesystemencoding())
+                path = unicode(path)#path.encode(sys.getfilesystemencoding())
                 self.__abrir_texto(path)
                 dlg.Destroy()
                 
     #Evento para guardar Archivos
     def onSaveFile(self,event):
-            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
+            dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.SAVE | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
                 path = dlg.GetPath()
                 path = path.replace('\\','/')
-                path = path.encode(sys.getfilesystemencoding())
+                path = unicode(path)#path.encode(sys.getfilesystemencoding())
                 self.__guardar_texto(path)
                 dlg.Destroy()
                 
