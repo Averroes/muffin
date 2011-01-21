@@ -55,7 +55,6 @@ class MuffinFrame(wx.Frame):
         self.botonStop = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/stop.png", wx.BITMAP_TYPE_ANY))
         self.botonAtras = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
-        self.volumen = wx.Slider(self.panelVideo, -1, 0, 0, 100)
         # Fin Parte del Video
          
         
@@ -73,7 +72,6 @@ class MuffinFrame(wx.Frame):
         self.botonStop.SetSize(self.botonStop.GetBestSize())
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
         self.botonAdelante.SetSize(self.botonAdelante.GetBestSize())
-        self.volumen.SetMinSize((160, 21))
         # end wxGlade
 
     def __do_layout(self):
@@ -86,15 +84,12 @@ class MuffinFrame(wx.Frame):
         ContenedorMplayer = wx.BoxSizer(wx.VERTICAL)
         ContenedorControles = wx.BoxSizer(wx.VERTICAL)
         Controles = wx.BoxSizer(wx.HORIZONTAL)
-        ContVolumen = wx.StaticBoxSizer(self.ContVolumen_staticbox, wx.VERTICAL)
         ContenedorMplayer.Add(self.VideoMplayer, 4, wx.EXPAND, 0)#
         ContenedorControles.Add(self.PosicionVideo, 0, wx.EXPAND, 0)
         Controles.Add(self.botonPlay, 0, 0, 0)
         Controles.Add(self.botonStop, 0, 0, 0)
         Controles.Add(self.botonAtras, 0, 0, 0)
         Controles.Add(self.botonAdelante, 0, 0, 0)
-        ContVolumen.Add(self.volumen, 0, wx.EXPAND, 0)
-        Controles.Add(ContVolumen, 1, wx.EXPAND, 0)
         ContenedorControles.Add(Controles, 1, 0, 0)
         ContenedorMplayer.Add(ContenedorControles, 1, wx.EXPAND, 0)
         self.panelVideo.SetSizer(ContenedorMplayer)

@@ -50,7 +50,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
         #file.write(texto)
         self.SaveFile(_doc_path)#soluciona problema con unicode
         #file.close()
-        print u"»»archivo guardado correctamente"
+        print u"»» Archivo guardado correctamente"
         
         
     #Evento para abrir Archivos

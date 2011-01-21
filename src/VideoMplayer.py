@@ -20,7 +20,7 @@ def initVideo(parent):
     global video_mplayer_panel
     global padre
     padre=parent
-    video_mplayer_panel=mpc.MplayerCtrl(parent, -1, mplayer_path)
+    video_mplayer_panel=mpc.MplayerCtrl(padre, -1, mplayer_path)
     return video_mplayer_panel
 
 
@@ -28,9 +28,15 @@ def __openVideo(video_path2):
     global video_path
     video_path=video_path2
     print video_path
-    video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
-    video_mplayer_panel.Loadfile(video_path)
-    #video_mplayer_panel.FrameDrop(0)
+    try:
+        video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
+        video_mplayer_panel.Loadfile(video_path)
+        #video_mplayer_panel.FrameDrop(0)
+    except UnicodeDecodeError:
+        #Gestiona el error del unicode2ascii (not in range(128) )
+        onStopVideo(wx.EVT_ACTIVATE)
+        onPlayVideo(wx.EVT_ACTIVATE)
+        
     return
 
 
@@ -44,8 +50,7 @@ def onLoadFile(event):
     if dlg.ShowModal() == wx.ID_OK:
         path = dlg.GetPath()
         path = path.replace('\\','/')
-        #path = path.encode(sys.getfilesystemencoding())
-        path=str(path)
+        path = path.encode(sys.getfilesystemencoding())
         __openVideo(path)
         dlg.Destroy()
         
@@ -67,7 +72,7 @@ def onLoadSub(event):
 
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
-        print u"¡¡no hay proceso!!"
+        print u"¡¡no hay proceso de Mplayer!!"
         print video_path
         video_mplayer_panel.Start(video_path)    
     else:
