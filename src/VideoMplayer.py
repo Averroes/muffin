@@ -13,7 +13,7 @@ if os.name == 'nt':
     mplayer_path="mplayer.exe"
 else:
     mplayer_path="mplayer"
-    mpc.VO_DRIVER="gl,"+mpc.VO_DRIVER
+    mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
 
 
 def initVideo(parent):
@@ -25,17 +25,19 @@ def initVideo(parent):
 
 
 def __openVideo(video_path2):
+    if video_mplayer_panel.process_alive :
+        onStopVideo(wx.Event)
     global video_path
     video_path=video_path2
-    print video_path
+    print u"& Abriendo:", video_path
     try:
         video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
         video_mplayer_panel.Loadfile(video_path)
         #video_mplayer_panel.FrameDrop(0)
     except UnicodeDecodeError:
         #Gestiona el error del unicode2ascii (not in range(128) )
-        onStopVideo(wx.EVT_ACTIVATE)
-        onPlayVideo(wx.EVT_ACTIVATE)
+        onStopVideo(wx.Event)
+        onPlayVideo(wx.Event)
         
     return
 
@@ -56,27 +58,22 @@ def onLoadFile(event):
         
 
 def onLoadSub(event):
-    print u"cargando sub?"
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, ("-ass",) )
     #video_mplayer_panel.SubSource('2')
-    print mpc.VO_DRIVER
-    if video_mplayer_panel.GetSubVisibility():
-        print u"Activado"
-    else:
-        print u"No activado"
-        
-        
+    #print mpc.VO_DRIVER
+    print u"→Subtitulo activado (si lo hay)←"
+
 
 #---Eventos de reproduccion del video---
 
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
         print u"¡¡no hay proceso de Mplayer!!"
-        print video_path
+        print u"& Abriendo:", video_path
         video_mplayer_panel.Start(video_path)    
     else:
-        print u">>pausa/play normal"
+        print u">> pausa/play normal"
         video_mplayer_panel.Pause()#despausa
         
 
@@ -86,7 +83,7 @@ def onStopVideo(event):
         #video_mplayer_panel.Stop()
         while not video_mplayer_panel.Quit():
             pass
-        print u"#Video Detenido"
+        print u"# Video Detenido"
         
 
 def onAdvanceVideo(event, time=5):

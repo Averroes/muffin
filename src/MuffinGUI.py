@@ -23,7 +23,6 @@ class MuffinFrame(wx.Frame):
         self.panelDiccionarios = wx.Panel(self, -1)
         self.pestanaDiccionarios = wx.Notebook(self.panelDiccionarios, -1, style=0)
         self.panelVideo = wx.Panel(self, -1)
-        self.ContVolumen_staticbox = wx.StaticBox(self.panelVideo, -1, u"Volumen")
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
         self.panelDiccionario1 = wx.Panel(self.pestanaDiccionarios, -1)
@@ -41,7 +40,8 @@ class MuffinFrame(wx.Frame):
         self.Muffin_menubar.Append(wxglade_tmp_menu, u"Archivo")
         
         wxglade_tmp_menu = wx.Menu()
-        wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), u"Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
+        wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
+                                            u"Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, VideoMplayer.onLoadSub, wxSubtitulo)
         self.Muffin_menubar.Append(wxglade_tmp_menu, u"Opciones de video")
         
@@ -51,10 +51,14 @@ class MuffinFrame(wx.Frame):
         # Parte del Video
         self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo) #wx.Panel(self.panelVideo, -1)
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
-        self.botonPlay = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
-        self.botonStop = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/stop.png", wx.BITMAP_TYPE_ANY))
-        self.botonAtras = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
-        self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
+        self.botonPlay = wx.BitmapButton(self.panelVideo, -1, 
+                                         wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
+        self.botonStop = wx.BitmapButton(self.panelVideo, -1, 
+                                         wx.Bitmap("img/stop.png", wx.BITMAP_TYPE_ANY))
+        self.botonAtras = wx.BitmapButton(self.panelVideo, -1, 
+                                          wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
+        self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
+                                             wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
          
         
@@ -120,3 +124,37 @@ class MuffinFrame(wx.Frame):
 
 # end of class MuffinFrame
 
+#=========================================
+#Cuadro de dialogo de error con el Mplayer.
+class MyDialog(wx.Dialog):
+    def __init__(self, *args, **kwds):
+        # begin wxGlade: MyDialog.__init__
+        kwds["style"] = wx.DEFAULT_DIALOG_STYLE
+        wx.Dialog.__init__(self, *args, **kwds)
+        self.label_2 = wx.StaticText(self,
+                                      -1, 
+                                      "Error, el mplayer no ha sido encontrado.\n", 
+                                      style=wx.ALIGN_RIGHT|wx.ALIGN_CENTRE|wx.ST_NO_AUTORESIZE)
+
+        self.__set_properties()
+        self.__do_layout()
+        # end wxGlade
+
+    def __set_properties(self):
+        # begin wxGlade: MyDialog.__set_properties
+        self.SetTitle("ErrorMplayer")
+        # end wxGlade
+
+    def __do_layout(self):
+        # begin wxGlade: MyDialog.__do_layout
+        sizer_4 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_4.Add(self.label_2, 
+                    0, 
+                    wx.ALL|wx.EXPAND|wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 
+                    0)
+        self.SetSizer(sizer_4)
+        sizer_4.Fit(self)
+        self.Layout()
+        # end wxGlade
+
+# end of class MyDialog
