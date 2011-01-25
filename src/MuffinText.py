@@ -47,7 +47,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
         file.close()
         if self.esta_guardado:
             self.hiloGuardado.kill()
-            self.hiloGuardado,self.path=None
+            self.hiloGuardado, self.path=None,None
             self.esta_guardado=False
            
         

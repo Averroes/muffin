@@ -23,4 +23,5 @@ if __name__ == '__main__':
     app.SetTopWindow(Muffin)
     Muffin.Show()
     app.MainLoop()
+    
     print u'Finalizando Muffin Translator'

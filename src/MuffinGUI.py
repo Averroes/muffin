@@ -120,7 +120,7 @@ class MuffinFrame(wx.Frame):
         self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
 
         self.texto.Bind(wx.EVT_KEY_UP, VideoMplayer.onKeyPuase)
-        
+
 
 # end of class MuffinFrame
 

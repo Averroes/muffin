@@ -18,7 +18,7 @@ else:
 
 def initVideo(parent):
     global video_mplayer_panel
-    global padre
+    global padre, ventana
     padre=parent
     video_mplayer_panel=mpc.MplayerCtrl(padre, -1, mplayer_path)
     return video_mplayer_panel
@@ -38,7 +38,10 @@ def __openVideo(video_path2):
         #Gestiona el error del unicode2ascii (not in range(128) )
         onStopVideo(wx.Event)
         onPlayVideo(wx.Event)
-        
+    except mpc.BuildProcessError:
+        #wx.MessageDialog(None, 'Error, el Mplayer.exe no se encuentra instalado')
+        print "¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!"
+
     return
 
 
