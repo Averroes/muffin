@@ -52,13 +52,9 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
            
         
     def __guardar_texto(self,_doc_path):
-        #file=open(_doc_path,"w")#sobre-escribe
-        #texto=unicode(self.GetString(0, -1))#de 0 a infinito
-        #file.write(texto)
         self.path=_doc_path
         self.SaveFile(self.path)#soluciona problema con unicode
-        #file.close()
-        print u"»» Archivo guardado correctamente"
+        print ("»» Archivo guardado correctamente")
         if not self.esta_guardado:
             self.esta_guardado=True
             self.hiloGuardado=AutoGuardado(self)
@@ -69,7 +65,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
     #Evento para abrir Archivos
     def onLoadFile(self, event):
         #if self.tipo_nuevo:
-            dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
+            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.OPEN | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
@@ -79,7 +75,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
                 
     #Evento para guardar Archivos
     def onSaveFile(self,event):
-            dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
+            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.SAVE | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
@@ -104,13 +100,13 @@ class AutoGuardado(threading.Thread):
             time.sleep(30)
             if self.seguir_guardando:
                 self.__wxText.SaveFile(self.__wxText.path)
-                print u"» Guardado Automatico...(30seg)",self.getName()
+                print ("» Guardado Automatico...(30seg) "+self.getName() )
             else:
-                print self.getName(),"is dead X.x"
+                print (self.getName()+" is dead X.x")
                 break
     
     def kill(self):
         self.seguir_guardando=False
-        print self.getName(),u"pronto... morirá u.u"
+        print (self.getName()+" pronto... morirá u.u")
         #self.join()
 

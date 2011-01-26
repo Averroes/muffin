@@ -31,19 +31,19 @@ class MuffinFrame(wx.Frame):
         self.Muffin_menubar = wx.MenuBar()
         
         wxglade_tmp_menu = wx.Menu()
-        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), u"Abrir video", "", wx.ITEM_NORMAL)
+        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), "Abrir video", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, VideoMplayer.onLoadFile, wxAbrirVideo)
-        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), u"Abrir texto", "", wx.ITEM_NORMAL)
+        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), "Abrir texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
-        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), u"Guardar texto", "", wx.ITEM_NORMAL)
+        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, u"Archivo")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
         
         wxglade_tmp_menu = wx.Menu()
         wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
-                                            u"Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
+                                            "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, VideoMplayer.onLoadSub, wxSubtitulo)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, u"Opciones de video")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
         
         self.SetMenuBar(self.Muffin_menubar)
         # Menu Bar end
@@ -69,7 +69,7 @@ class MuffinFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle(u"Muffin Translator - PreAlpha version")
+        self.SetTitle("Muffin Translator - PreAlpha version")
         self.SetSize((800, 600))
         self.SetMinSize((800, 600))
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
@@ -123,38 +123,3 @@ class MuffinFrame(wx.Frame):
 
 
 # end of class MuffinFrame
-
-#=========================================
-#Cuadro de dialogo de error con el Mplayer.
-class MyDialog(wx.Dialog):
-    def __init__(self, *args, **kwds):
-        # begin wxGlade: MyDialog.__init__
-        kwds["style"] = wx.DEFAULT_DIALOG_STYLE
-        wx.Dialog.__init__(self, *args, **kwds)
-        self.label_2 = wx.StaticText(self,
-                                      -1, 
-                                      "Error, el mplayer no ha sido encontrado.\n", 
-                                      style=wx.ALIGN_RIGHT|wx.ALIGN_CENTRE|wx.ST_NO_AUTORESIZE)
-
-        self.__set_properties()
-        self.__do_layout()
-        # end wxGlade
-
-    def __set_properties(self):
-        # begin wxGlade: MyDialog.__set_properties
-        self.SetTitle("ErrorMplayer")
-        # end wxGlade
-
-    def __do_layout(self):
-        # begin wxGlade: MyDialog.__do_layout
-        sizer_4 = wx.BoxSizer(wx.HORIZONTAL)
-        sizer_4.Add(self.label_2, 
-                    0, 
-                    wx.ALL|wx.EXPAND|wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 
-                    0)
-        self.SetSizer(sizer_4)
-        sizer_4.Fit(self)
-        self.Layout()
-        # end wxGlade
-
-# end of class MyDialog

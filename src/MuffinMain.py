@@ -13,10 +13,10 @@ if __name__ == '__main__':
     '''
     Main de Muffin, aquí se inicializa la ventana.
     '''
-    print u"Iniciando Muffin Translator"
-    print u"RECUERDE: debe tener instalado el mplayer(*nix) desde los repositorios,"
-    print u"o el mplayer.exe(win) en el mismo directorio del ejecutable."
-    print u"--------------------------"
+    print ("Iniciando Muffin Translator")
+    print ("RECUERDE: debe tener instalado el mplayer(*nix) desde los repositorios,")
+    print ("o el mplayer.exe(win) en el mismo directorio del ejecutable.")
+    print ("--------------------------")
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()
     Muffin= MuffinGUI.MuffinFrame (None, -1, "")
@@ -24,4 +24,4 @@ if __name__ == '__main__':
     Muffin.Show()
     app.MainLoop()
     
-    print u'Finalizando Muffin Translator'
+    print ('Finalizando Muffin Translator')

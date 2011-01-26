@@ -5,15 +5,15 @@ Created on 6/12/2010
 @author: erunamo
 '''
 import wx
-import os, sys
+import os
 import MplayerCtrl as mpc
 
 #----Variables globales----
 if os.name == 'nt':
-    mplayer_path="mplayer.exe"
+    mplayer_path=u"mplayer.exe"
 else:
-    mplayer_path="mplayer"
-    mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
+    mplayer_path=u"mplayer"
+    #mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
 
 
 def initVideo(parent):
@@ -29,18 +29,19 @@ def __openVideo(video_path2):
         onStopVideo(wx.Event)
     global video_path
     video_path=video_path2
-    print u"& Abriendo:", video_path
+    print ("& Abriendo: "+ video_path)
     try:
         video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
         video_mplayer_panel.Loadfile(video_path)
         #video_mplayer_panel.FrameDrop(0)
     except UnicodeDecodeError:
         #Gestiona el error del unicode2ascii (not in range(128) )
+        print ('error de encode (en teoría, no debería pasar)')
         onStopVideo(wx.Event)
         onPlayVideo(wx.Event)
     except mpc.BuildProcessError:
         #wx.MessageDialog(None, 'Error, el Mplayer.exe no se encuentra instalado')
-        print "¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!"
+        print ("¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!")
 
     return
 
@@ -49,13 +50,13 @@ def __openVideo(video_path2):
 #---Eventos de carga---
 
 def onLoadFile(event):
-    dlg = wx.FileDialog(None, message=u"Seleccione un archivo de video",
+    dlg = wx.FileDialog(None, message="Seleccione un archivo de video",
                         defaultDir=os.getcwd(), defaultFile="",
                         style=wx.OPEN | wx.CHANGE_DIR )
     if dlg.ShowModal() == wx.ID_OK:
         path = dlg.GetPath()
         path = path.replace('\\','/')
-        path = path.encode(sys.getfilesystemencoding())
+        #path = path.encode(sys.getfilesystemencoding())#MplayerCtrl0.3.0 no lo necesita
         __openVideo(path)
         dlg.Destroy()
         
@@ -63,20 +64,19 @@ def onLoadFile(event):
 def onLoadSub(event):
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, ("-ass",) )
-    #video_mplayer_panel.SubSource('2')
-    #print mpc.VO_DRIVER
-    print u"→Subtitulo activado (si lo hay)←"
+    #print (mpc.VO_DRIVER)
+    print ("→Subtitulo activado (si lo hay)←")
 
 
 #---Eventos de reproduccion del video---
 
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
-        print u"¡¡no hay proceso de Mplayer!!"
-        print u"& Abriendo:", video_path
+        print ("¡¡no hay proceso de Mplayer!!")
+        print ("& Abriendo: "+ video_path)
         video_mplayer_panel.Start(video_path)    
     else:
-        print u">> pausa/play normal"
+        print (">> pausa/play normal")
         video_mplayer_panel.Pause()#despausa
         
 
@@ -86,7 +86,7 @@ def onStopVideo(event):
         #video_mplayer_panel.Stop()
         while not video_mplayer_panel.Quit():
             pass
-        print u"# Video Detenido"
+        print ("# Video Detenido")
         
 
 def onAdvanceVideo(event, time=5):
@@ -99,7 +99,7 @@ def onBackVideo(event, time=-5):
 def onKeyPuase(event):
     #print event.GetKeyCode()
     if event.GetKeyCode() == 27:#tecla ESC
-        print u"**Pausa, tecla ESC desapretada...**"
+        print ("**Pausa, tecla ESC desapretada...**")
         onPlayVideo(event)
     elif event.GetKeyCode() == 340:#tecla F1
         onBackVideo(event)
