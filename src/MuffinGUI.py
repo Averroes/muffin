@@ -6,7 +6,7 @@ Created on 6/12/2010
 '''
 import wx
 import VideoMplayer
-import MuffinText
+import MuffinText, MuffinDics
 
 class MuffinFrame(wx.Frame):
     '''
@@ -21,11 +21,10 @@ class MuffinFrame(wx.Frame):
         wx.Frame.__init__(self, *args, **kwds)
         self.panelTexto = wx.Panel(self, -1)
         self.panelDiccionarios = wx.Panel(self, -1)
-        self.pestanaDiccionarios = wx.Notebook(self.panelDiccionarios, -1, style=0)
+        self.pestanaDiccionarios = MuffinDics.DiccionariosTab(self.panelDiccionarios)#
         self.panelVideo = wx.Panel(self, -1)
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
-        self.panelDiccionario1 = wx.Panel(self.pestanaDiccionarios, -1)
         
         # Menu Bar
         self.Muffin_menubar = wx.MenuBar()
@@ -98,7 +97,6 @@ class MuffinFrame(wx.Frame):
         ContenedorMplayer.Add(ContenedorControles, 1, wx.EXPAND, 0)
         self.panelVideo.SetSizer(ContenedorMplayer)
         Contenedor1.Add(self.panelVideo, 2, wx.EXPAND, 2)
-        self.pestanaDiccionarios.AddPage(self.panelDiccionario1, "tab1")
         contenedorDiccionarios.Add(self.pestanaDiccionarios, 1, wx.EXPAND, 0)
         self.panelDiccionarios.SetSizer(contenedorDiccionarios)
         Contenedor1.Add(self.panelDiccionarios, 1, wx.EXPAND, 0)
