@@ -16,10 +16,14 @@ else:
     #mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
 
 
-def initVideo(parent):
+def initVideo(parent, _sliderVideo=None):
+    '''
+    Recibe al padre para contruir el wx.Panel, y 
+    el Slider de la posición del video.
+    '''
     global video_mplayer_panel
-    global padre, ventana
-    padre=parent
+    global padre, sliderVideo
+    padre, sliderVideo = parent, _sliderVideo
     video_mplayer_panel=mpc.MplayerCtrl(padre, -1, mplayer_path, mplayer_args=("-ass"," -osdlevel 3 ",) )
     #video_mplayer_panel.Osd('2')
     return video_mplayer_panel
@@ -47,6 +51,8 @@ def __start():
     print ("& Abriendo: "+ video_path)
     video_mplayer_panel.Osd(2)
     #video_mplayer_panel.SetProperty('osdlevel', 2)
+    sliderVideo.SetValue(0)
+    
     
 #============Manejo de eventos==============
 #---Eventos de carga---
@@ -111,3 +117,11 @@ def onKeyPuase(event):
         onAdvanceVideo(event)
     else:
         event.Skip()
+        
+#-----Eventos Slider-----
+def setPos(event):
+    video_mplayer_panel.Seek(sliderVideo.GetValue(), 1)#1=porcentaje
+
+def getPos(event):
+    #sliderVideo.SetValue( int(video_mplayer_panel.GetProperty('percent_pos') ) )
+    pass

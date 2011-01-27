@@ -8,6 +8,7 @@ import wx
 import VideoMplayer
 import MuffinText, MuffinDics
 
+
 class MuffinFrame(wx.Frame):
     '''
     classdocs
@@ -48,8 +49,8 @@ class MuffinFrame(wx.Frame):
         # Menu Bar end
         
         # Parte del Video
-        self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo) #wx.Panel(self.panelVideo, -1)
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
+        self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo, self.PosicionVideo) #wx.Panel(self.panelVideo, -1)
         self.botonPlay = wx.BitmapButton(self.panelVideo, -1, 
                                          wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
         self.botonStop = wx.BitmapButton(self.panelVideo, -1, 
@@ -59,7 +60,7 @@ class MuffinFrame(wx.Frame):
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
                                              wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
-         
+        #self.PosicionVideo.SetValue()
         
         self.__set_properties()
         self.__do_layout()
@@ -76,6 +77,9 @@ class MuffinFrame(wx.Frame):
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
         self.botonAdelante.SetSize(self.botonAdelante.GetBestSize())
         # end wxGlade
+        
+        self.PosicionVideo.SetRange(0,100)# en porcentaje
+        self.PosicionVideo.SetValue(0)
 
     def __do_layout(self):
         # begin wxGlade: MuffinFrame.__do_layout
@@ -118,6 +122,9 @@ class MuffinFrame(wx.Frame):
         self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
 
         self.texto.Bind(wx.EVT_KEY_UP, VideoMplayer.onKeyPuase)
+        
+        self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, VideoMplayer.setPos)
+        self.VideoMplayer.Bind(wx.EVT_MOUSE_EVENTS, VideoMplayer.getPos)
 
 
 # end of class MuffinFrame

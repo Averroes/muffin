@@ -73,8 +73,8 @@ def GoogleTranslator(objeto):
     DiccGenerico(), con eso se tien acceso a las partes 
     para tomar y modificar los resultados. 
     '''
-    print objeto.pregunta.GetValue()
     print ("clic")
+    objeto.respuesta.SetLabel(objeto.pregunta.GetValue())
 
 def WordReference():
     pass
