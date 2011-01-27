@@ -69,9 +69,9 @@ class DiccGenerico(wx.Panel):
 #------- Funciones consulta de cada servicio.
 def GoogleTranslator(objeto):
     ''' 
-    "objeto", se refiere a un objeto tipo DiccGenerico(), 
-    con eso se tien acceso a las partes para tomar y 
-    modificar los resultados. 
+    El parametro "objeto", se refiere a un objeto tipo 
+    DiccGenerico(), con eso se tien acceso a las partes 
+    para tomar y modificar los resultados. 
     '''
     print objeto.pregunta.GetValue()
     print ("clic")
