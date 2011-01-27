@@ -20,7 +20,8 @@ def initVideo(parent):
     global video_mplayer_panel
     global padre, ventana
     padre=parent
-    video_mplayer_panel=mpc.MplayerCtrl(padre, -1, mplayer_path)
+    video_mplayer_panel=mpc.MplayerCtrl(padre, -1, mplayer_path, mplayer_args=("-ass"," -osdlevel 3 ",) )
+    #video_mplayer_panel.Osd('2')
     return video_mplayer_panel
 
 
@@ -31,21 +32,22 @@ def __openVideo(video_path2):
     video_path=video_path2
     print ("& Abriendo: "+ video_path)
     try:
-        video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
-        video_mplayer_panel.Loadfile(video_path)
-        #video_mplayer_panel.FrameDrop(0)
+        __start()
+        #video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
+        #video_mplayer_panel.Loadfile(video_path)
     except UnicodeDecodeError:
-        #Gestiona el error del unicode2ascii (not in range(128) )
-        print ('error de encode (en teoría, no debería pasar)')
-        onStopVideo(wx.Event)
-        onPlayVideo(wx.Event)
+        print ('error de Unicode (en teoría, no debería pasar)')
     except mpc.BuildProcessError:
-        #wx.MessageDialog(None, 'Error, el Mplayer.exe no se encuentra instalado')
         print ("¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!")
 
     return
 
-
+def __start():
+    video_mplayer_panel.Start(video_path)
+    print ("& Abriendo: "+ video_path)
+    video_mplayer_panel.Osd(2)
+    #video_mplayer_panel.SetProperty('osdlevel', 2)
+    
 #============Manejo de eventos==============
 #---Eventos de carga---
 
@@ -63,9 +65,10 @@ def onLoadFile(event):
 
 def onLoadSub(event):
     onStopVideo(event)
-    video_mplayer_panel.Start(video_path, ("-ass",) )
+    video_mplayer_panel.Start(video_path, (u"-ass",) )
     #print (mpc.VO_DRIVER)
     print ("→Subtitulo activado (si lo hay)←")
+    video_mplayer_panel.Osd(2)
 
 
 #---Eventos de reproduccion del video---
@@ -73,8 +76,9 @@ def onLoadSub(event):
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
         print ("¡¡no hay proceso de Mplayer!!")
-        print ("& Abriendo: "+ video_path)
-        video_mplayer_panel.Start(video_path)    
+        
+        #video_mplayer_panel.Start(video_path)
+        __start()    
     else:
         print (">> pausa/play normal")
         video_mplayer_panel.Pause()#despausa

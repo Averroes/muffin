@@ -25,12 +25,16 @@ class DiccionariosTab(wx.Notebook):
         
         
     def __servicios(self):
-        self.google=DiccGenerico(self, "Google")#, nombre metodo de envio y respuesta)
+        self.google=DiccGenerico(self, "Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
         
         
 #------------------
 class DiccGenerico(wx.Panel):
-    def __init__(self, _padre, _nombre="servicio?"):
+    def __init__(self, _padre, _nombre="servicio?", f_consulta=None):
+        '''
+        _padre=padre de wx.Panel,_nombre=nombre del servicio,
+        f_consulta= función que hará la consulta en internet.
+        '''
         wx.Panel.__init__(self, _padre, -1, name=_nombre)
         
         self.nombre_servicio = wx.StaticText(self, -1, _nombre)
@@ -38,10 +42,12 @@ class DiccGenerico(wx.Panel):
         self.button_enviar = wx.Button(self, -1, "OK")
         self.respuesta = wx.StaticText(self, -1, u"Aquí saldrá la respuesta a su consulta")
         self.conexion = wx.StaticText(self, -1, u"Información de conexión...")
+        self.func_consulta=f_consulta#función que consulta la palabra en internet
         
         self.__do_layout()
+        self.__eventos()
         
-        
+        #self.pregunta.GetValue()
         
     def __do_layout(self):
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
@@ -53,13 +59,22 @@ class DiccGenerico(wx.Panel):
         self.SetSizer(sizer_1)
         
     def __eventos(self):
-        pass
+        self.button_enviar.Bind(wx.EVT_BUTTON, self.consultor)#
+        self.pregunta.Bind(wx.EVT_TEXT_ENTER, self.consultor)
         
+    def consultor(self, event):
+        self.func_consulta(self)#warper
         
         
 #------- Funciones consulta de cada servicio.
-def GoogleTranslator():
-    pass
+def GoogleTranslator(objeto):
+    ''' 
+    "objeto", se refiere a un objeto tipo DiccGenerico(), 
+    con eso se tien acceso a las partes para tomar y 
+    modificar los resultados. 
+    '''
+    print objeto.pregunta.GetValue()
+    print ("clic")
 
 def WordReference():
     pass
