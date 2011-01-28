@@ -28,30 +28,9 @@ class MuffinFrame(wx.Frame):
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
         
-        # Menu Bar
-        self.Muffin_menubar = wx.MenuBar()
-        
-        wxglade_tmp_menu = wx.Menu()
-        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), "Abrir video", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, VideoMplayer.onLoadFile, wxAbrirVideo)
-        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), "Abrir texto", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
-        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
-        
-        wxglade_tmp_menu = wx.Menu()
-        wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
-                                            "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, VideoMplayer.onLoadSub, wxSubtitulo)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
-        
-        self.SetMenuBar(self.Muffin_menubar)
-        # Menu Bar end
-        
         # Parte del Video
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
-        self.VideoMplayer = VideoMplayer.initVideo(self.panelVideo, self.PosicionVideo) #wx.Panel(self.panelVideo, -1)
+        self.VideoMplayer = VideoMplayer.VideoMplayer(self.panelVideo, self.PosicionVideo) #wx.Panel(self.panelVideo, -1)
         self.botonPlay = wx.BitmapButton(self.panelVideo, -1, 
                                          wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
         self.botonStop = wx.BitmapButton(self.panelVideo, -1, 
@@ -61,7 +40,27 @@ class MuffinFrame(wx.Frame):
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
                                              wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
-        #self.PosicionVideo.SetValue()
+        
+        # Menu Bar
+        self.Muffin_menubar = wx.MenuBar()
+        
+        wxglade_tmp_menu = wx.Menu()
+        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), "Abrir video", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadFile, wxAbrirVideo)
+        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), "Abrir texto", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
+        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
+        
+        wxglade_tmp_menu = wx.Menu()
+        wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
+                                            "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadSub, wxSubtitulo)
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
+        
+        self.SetMenuBar(self.Muffin_menubar)
+        # Menu Bar end
         
         self.__set_properties()
         self.__do_layout()
@@ -120,14 +119,14 @@ class MuffinFrame(wx.Frame):
         '''
         Control de eventos sobre los widgets (todo, menos los menús).
         '''
-        self.botonPlay.Bind(wx.EVT_BUTTON, VideoMplayer.onPlayVideo)
-        self.botonStop.Bind(wx.EVT_BUTTON, VideoMplayer.onStopVideo)
-        self.botonAdelante.Bind(wx.EVT_BUTTON, VideoMplayer.onAdvanceVideo)
-        self.botonAtras.Bind(wx.EVT_BUTTON, VideoMplayer.onBackVideo)
+        self.botonPlay.Bind(wx.EVT_BUTTON, self.VideoMplayer.onPlayVideo)
+        self.botonStop.Bind(wx.EVT_BUTTON, self.VideoMplayer.onStopVideo)
+        self.botonAdelante.Bind(wx.EVT_BUTTON, self.VideoMplayer.onAdvanceVideo)
+        self.botonAtras.Bind(wx.EVT_BUTTON, self.VideoMplayer.onBackVideo)
 
-        self.texto.Bind(wx.EVT_KEY_UP, VideoMplayer.onKeyPuase)
+        self.texto.Bind(wx.EVT_KEY_UP, self.VideoMplayer.onKeyPuase)
         
-        self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, VideoMplayer.setPos)
+        self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, self.VideoMplayer.setPos)
         #self.VideoMplayer.Bind(wx.EVT_MOUSE_EVENTS, VideoMplayer.getPos)
 
 
