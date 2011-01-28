@@ -30,14 +30,16 @@ def initVideo(parent, _sliderVideo=None):
 
 
 def __openVideo(video_path2):
+    '''
+    Abre el video cargado, y lo manda a reproducir.
+    '''
     if video_mplayer_panel.process_alive :
         onStopVideo(wx.Event)
     global video_path
     video_path=video_path2
-    print ("& Abriendo: "+ video_path)
+
     try:
         __start()
-        #video_mplayer_panel.Start(video_path)#, ("-cache-min 20",) )
         #video_mplayer_panel.Loadfile(video_path)
     except UnicodeDecodeError:
         print ('error de Unicode (en teoría, no debería pasar)')
@@ -47,10 +49,12 @@ def __openVideo(video_path2):
     return
 
 def __start():
-    video_mplayer_panel.Start(video_path)
+    '''
+    Empieza a reproducir el último video cargado.
+    '''
+    video_mplayer_panel.Start(video_path, (u"",) )
     print ("& Abriendo: "+ video_path)
     video_mplayer_panel.Osd(2)
-    #video_mplayer_panel.SetProperty('osdlevel', 2)
     sliderVideo.SetValue(0)
     
     
@@ -58,6 +62,9 @@ def __start():
 #---Eventos de carga---
 
 def onLoadFile(event):
+    '''
+    Cargador de archivos de video.
+    '''
     dlg = wx.FileDialog(None, message="Seleccione un archivo de video",
                         defaultDir=os.getcwd(), defaultFile="",
                         style=wx.OPEN | wx.CHANGE_DIR )
@@ -70,9 +77,11 @@ def onLoadFile(event):
         
 
 def onLoadSub(event):
+    '''
+    Evento que carga los subtitulode .ass de un video.
+    '''
     onStopVideo(event)
     video_mplayer_panel.Start(video_path, (u"-ass",) )
-    #print (mpc.VO_DRIVER)
     print ("→Subtitulo activado (si lo hay)←")
     video_mplayer_panel.Osd(2)
 
@@ -82,21 +91,15 @@ def onLoadSub(event):
 def onPlayVideo(event):
     if not video_mplayer_panel.process_alive :
         print ("¡¡no hay proceso de Mplayer!!")
-        
-        #video_mplayer_panel.Start(video_path)
         __start()    
     else:
-        print (">> pausa/play normal")
         video_mplayer_panel.Pause()#despausa
         
 
 def onStopVideo(event):
-    #playing=video_mplayer_panel.playing
-    #if video_mplayer_panel.playing :
-        #video_mplayer_panel.Stop()
-        while not video_mplayer_panel.Quit():
-            pass
-        print ("# Video Detenido")
+    while not video_mplayer_panel.Quit():
+        pass
+    print ("# Video Detenido")
         
 
 def onAdvanceVideo(event, time=5):
@@ -109,7 +112,7 @@ def onBackVideo(event, time=-5):
 def onKeyPuase(event):
     #print event.GetKeyCode()
     if event.GetKeyCode() == 27:#tecla ESC
-        print ("**Pausa, tecla ESC desapretada...**")
+        #print ("**Pausa, tecla ESC desapretada...**")
         onPlayVideo(event)
     elif event.GetKeyCode() == 340:#tecla F1
         onBackVideo(event)
@@ -123,5 +126,5 @@ def setPos(event):
     video_mplayer_panel.Seek(sliderVideo.GetValue(), 1)#1=porcentaje
 
 def getPos(event):
-    #sliderVideo.SetValue( int(video_mplayer_panel.GetProperty('percent_pos') ) )
+    #sliderVideo.SetValue( video_mplayer_panel.GetProperty('percent_pos') ) 
     pass

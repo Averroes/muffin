@@ -11,11 +11,12 @@ import MuffinText, MuffinDics
 
 class MuffinFrame(wx.Frame):
     '''
-    classdocs
+    MuffinFrame contiene los datos básicos para construir la ventana 
+    con sus partes de MuffinTranslator.
     '''
     def __init__(self, *args, **kwds):
         '''
-        Constructor
+        Constructor por defecto.
         '''
         # begin wxGlade: MuffinFrame.__init__
         kwds["style"] = wx.DEFAULT_FRAME_STYLE
@@ -116,6 +117,9 @@ class MuffinFrame(wx.Frame):
         
         
     def __controlEventos(self):
+        '''
+        Control de eventos sobre los widgets (todo, menos los menús).
+        '''
         self.botonPlay.Bind(wx.EVT_BUTTON, VideoMplayer.onPlayVideo)
         self.botonStop.Bind(wx.EVT_BUTTON, VideoMplayer.onStopVideo)
         self.botonAdelante.Bind(wx.EVT_BUTTON, VideoMplayer.onAdvanceVideo)
@@ -124,7 +128,7 @@ class MuffinFrame(wx.Frame):
         self.texto.Bind(wx.EVT_KEY_UP, VideoMplayer.onKeyPuase)
         
         self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, VideoMplayer.setPos)
-        self.VideoMplayer.Bind(wx.EVT_MOUSE_EVENTS, VideoMplayer.getPos)
+        #self.VideoMplayer.Bind(wx.EVT_MOUSE_EVENTS, VideoMplayer.getPos)
 
 
 # end of class MuffinFrame

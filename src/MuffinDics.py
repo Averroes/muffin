@@ -9,13 +9,12 @@ import wx
 
 class DiccionariosTab(wx.Notebook):
     '''
-    classdocs
+    DiccionariosTab construye las pestañas de consulta de diccionarios on-line,
+    también se encarga de gestionar los eventos consernientes a ellas.
     '''
-
-
     def __init__(self, padre):
         '''
-        Constructor
+        Constructor. Solo resibe al padre de wx.Notebook().
         '''
         wx.Notebook.__init__(self, padre, -1, style=0)
         self.__servicios()
@@ -30,9 +29,13 @@ class DiccionariosTab(wx.Notebook):
         
 #------------------
 class DiccGenerico(wx.Panel):
+    '''
+    DiccGenerico es un wx.Panel, que crea un conjunto de widgets generico,
+    su intención es la de funcionar para cualquier tipo de consulta online.
+    '''
     def __init__(self, _padre, _nombre="servicio?", f_consulta=None):
         '''
-        _padre=padre de wx.Panel,_nombre=nombre del servicio,
+        _padre=padre de wx.Panel; _nombre=nombre del servici; 
         f_consulta= función que hará la consulta en internet.
         '''
         wx.Panel.__init__(self, _padre, -1, name=_nombre)
@@ -46,8 +49,7 @@ class DiccGenerico(wx.Panel):
         
         self.__do_layout()
         self.__eventos()
-        
-        #self.pregunta.GetValue()
+
         
     def __do_layout(self):
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
@@ -63,6 +65,10 @@ class DiccGenerico(wx.Panel):
         self.pregunta.Bind(wx.EVT_TEXT_ENTER, self.consultor)
         
     def consultor(self, event):
+        '''
+        Consultor es un warper para llamar a la función 
+        encargada de la consulta en internet.
+        '''
         self.func_consulta(self)#warper
         
         
@@ -70,10 +76,11 @@ class DiccGenerico(wx.Panel):
 def GoogleTranslator(objeto):
     ''' 
     El parametro "objeto", se refiere a un objeto tipo 
-    DiccGenerico(), con eso se tien acceso a las partes 
-    para tomar y modificar los resultados. 
+    DiccGenerico(), con eso se tiene acceso a las partes 
+    internas de este, para tomar y modificar los 
+    resultados en pantalla. 
     '''
-    print ("clic")
+    print ("clic")# prueba xD
     objeto.respuesta.SetLabel(objeto.pregunta.GetValue())
 
 def WordReference():
