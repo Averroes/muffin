@@ -69,7 +69,7 @@ class MuffinFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle("Muffin Translator - PreAlpha version")
+        self.SetTitle("Muffin Translator - Alpha version")
         self.SetSize((800, 600))
         self.SetMinSize((800, 600))
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
@@ -77,7 +77,7 @@ class MuffinFrame(wx.Frame):
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
         self.botonAdelante.SetSize(self.botonAdelante.GetBestSize())
         # end wxGlade
-        
+
         self.PosicionVideo.SetRange(0,100)# en porcentaje
         self.PosicionVideo.SetValue(0)
 

@@ -17,14 +17,26 @@ class DiccionariosTab(wx.Notebook):
         Constructor. Solo resibe al padre de wx.Notebook().
         '''
         wx.Notebook.__init__(self, padre, -1, style=0)
+        self.faq=u"""
+ Muffin es un ayudante para la 
+ traducción de subtítulos, 
+ pensado para los traductores 
+ de anime. Muestra en una misma 
+ ventana: el video, el área para 
+ escribir texto, y la consulta 
+ de diccionarios on-line. Esto 
+ ahorra valioso tiempo a la hora 
+ de traducir, ya que se evita 
+ la tediosa tarea de pasar entre
+ ventanas por cada línea de 
+ traducción, etc."""
         self.__servicios()
-        self.AddPage(self.google, self.google.Name) 
-        
-        
-        
         
     def __servicios(self):
+        self.home=wx.StaticText(self, -1, self.faq, name='Home')
+        self.AddPage(self.home, self.home.Name) 
         self.google=DiccGenerico(self, "Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
+        self.AddPage(self.google, self.google.Name) 
         
         
 #------------------
