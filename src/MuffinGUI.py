@@ -39,6 +39,10 @@ class MuffinFrame(wx.Frame):
                                           wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
                                              wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
+        self.volumenUp = wx.BitmapButton(self.panelVideo, -1, 
+                                             wx.Bitmap("img/vol_up.png", wx.BITMAP_TYPE_ANY))
+        self.volumenDown = wx.BitmapButton(self.panelVideo, -1, 
+                                             wx.Bitmap("img/vol_down.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
         
         # Menu Bar
@@ -76,6 +80,8 @@ class MuffinFrame(wx.Frame):
         self.botonStop.SetSize(self.botonStop.GetBestSize())
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
         self.botonAdelante.SetSize(self.botonAdelante.GetBestSize())
+        self.volumenUp.SetSize(self.volumenUp.GetBestSize())
+        self.volumenDown.SetSize(self.volumenDown.GetBestSize())
         # end wxGlade
 
         self.PosicionVideo.SetRange(0,100)# en porcentaje
@@ -97,6 +103,9 @@ class MuffinFrame(wx.Frame):
         Controles.Add(self.botonStop, 0, 0, 0)
         Controles.Add(self.botonAtras, 0, 0, 0)
         Controles.Add(self.botonAdelante, 0, 0, 0)
+        Controles.Add(self.volumenDown, 0, 0, 0)
+        Controles.Add(self.volumenUp, 0, 0, 0)
+        #Controles.Add(self.volumenImg, 0, 0, 0)
         ContenedorControles.Add(Controles, 1, 0, 0)
         ContenedorMplayer.Add(ContenedorControles, 1, wx.EXPAND, 0)
         self.panelVideo.SetSizer(ContenedorMplayer)
@@ -123,6 +132,8 @@ class MuffinFrame(wx.Frame):
         self.botonStop.Bind(wx.EVT_BUTTON, self.VideoMplayer.onStopVideo)
         self.botonAdelante.Bind(wx.EVT_BUTTON, self.VideoMplayer.onAdvanceVideo)
         self.botonAtras.Bind(wx.EVT_BUTTON, self.VideoMplayer.onBackVideo)
+        self.volumenDown.Bind(wx.EVT_BUTTON, self.VideoMplayer.volDown)
+        self.volumenUp.Bind(wx.EVT_BUTTON, self.VideoMplayer.volUp)
 
         self.texto.Bind(wx.EVT_KEY_UP, self.VideoMplayer.onKeyPuase)
         

@@ -27,7 +27,8 @@ class VideoMplayer(mpc.MplayerCtrl):
         el Slider de la posición del video.
         '''
         self.padre, self.sliderVideo = parent, _sliderVideo
-        mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path, mplayer_args=("-ass"," -osdlevel 3 ",) )
+        self.__volumen=100
+        mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
 
 
     def __openVideo(self, video_path2):
@@ -49,15 +50,19 @@ class VideoMplayer(mpc.MplayerCtrl):
         return
     
     
-    def __start(self):
+    def __start(self, _argumentos=(u"",) ):
         '''
         Empieza a reproducir el último video cargado.
+        Puede recibir argumentos como una tupla. 
         '''
-        self.Start(self.video_path, (u"",) )
-        print ("& Abriendo: "+ self.video_path)
-        self.Osd(2)
-        self.sliderVideo.SetValue(0)
-        
+        try:
+            self.Start(self.video_path, _argumentos )
+            print ("& Abriendo: "+ self.video_path)
+            self.Osd(2)
+            self.sliderVideo.SetValue(0)
+            self.__volumen=100
+        except:
+            print("Error en __start (comenzar reproducción)")
         
     #============Manejo de eventos==============
     #---Eventos de carga---
@@ -82,9 +87,8 @@ class VideoMplayer(mpc.MplayerCtrl):
         Evento que carga los subtitulos .ass de un video.
         '''
         self.onStopVideo(event)
-        self.Start(self.video_path, (u"-ass",) )
-        print ("→Subtitulo activado (si lo hay)←")
-        self.Osd(2)
+        self.__start(_argumentos=(u"-ass",) )
+        print ("→Subtítulo .ASS con estilos, activado (si lo hay)←")
     
     
     #---Eventos de reproduccion del video---
@@ -129,3 +133,21 @@ class VideoMplayer(mpc.MplayerCtrl):
     def getPos(self, event):
         #sliderVideo.SetValue( video_mplayer_panel.GetProperty('percent_pos') ) 
         pass
+
+    #----Eventos Slider Audio
+    def volUp(self, event):
+        if self.__volumen < 100:
+            self.__volumen= self.__volumen+10
+            self.SetProperty('volume', float(self.__volumen))
+        else:
+            self.OsdShowText('Max vol', 1)
+            print 'Max vol'
+        
+    def volDown(self, event):
+        if self.__volumen > 0:
+            self.__volumen= self.__volumen-10
+            self.SetProperty('volume', float(self.__volumen))
+        else:
+            self.OsdShowText('Min vol', 1)
+            print 'Min vol'
+         
