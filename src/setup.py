@@ -8,7 +8,7 @@ Este Setup está hecho para usarse con py2exe
 from distutils.core import setup 
 import os
 
-num_version="0.1.5"
+num_version="0.1.7"
 
 if os.name == 'nt':
     import py2exe #CAUTION

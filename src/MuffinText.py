@@ -42,9 +42,9 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
     def __abrir_texto(self,_path):
         file=open(_path,"rU")
         texto = file.read()
+        file.close()
         #self.Create(self.__parent,value=texto, style=wx.TE_MULTILINE|wx.HSCROLL)#NO
         self.SetValue(texto)
-        file.close()
         if self.esta_guardado:
             self.hiloGuardado.kill()
             self.hiloGuardado, self.path=None,None
@@ -54,7 +54,8 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
     def __guardar_texto(self,_doc_path):
         self.path=_doc_path
         self.SaveFile(self.path)#soluciona problema con unicode
-        print ("»» Archivo guardado correctamente")
+        self.SaveFile(self.path+'~')#guarda también un backup
+        print (u"»» Archivo guardado correctamente + backup")
         if not self.esta_guardado:
             self.esta_guardado=True
             self.hiloGuardado=AutoGuardado(self)
@@ -100,7 +101,7 @@ class AutoGuardado(threading.Thread):
             time.sleep(30)
             if self.seguir_guardando:
                 self.__wxText.SaveFile(self.__wxText.path)
-                print ("» Guardado Automatico...(30seg) "+self.getName() )
+                print (u"» Guardado Automatico...(30seg) "+self.getName() )
             else:
                 print (self.getName()+" is dead X.x")
                 break
