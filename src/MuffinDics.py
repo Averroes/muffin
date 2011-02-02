@@ -112,15 +112,15 @@ def GoogleTranslator(objeto):
     try:
         content=urlopen(url).read()#falla si no hay internet
         
-        objeto.conexion.SetLabel("Conectando...")
+        objeto.conexion.SetLabel(u"Conectando...")
         trans_dict=json.loads(content)
     except AttributeError:
-        objeto.conexion.SetLabel("Error de traducción.")
+        objeto.conexion.SetLabel(u"Error de traducción.")
     except URLError:
-        objeto.conexion.SetLabel("Falló la conexión (no internet)")
+        objeto.conexion.SetLabel(u"Falló la conexión (no internet)")
     else:
-        objeto.conexion.SetLabel("Finalizado.")
-        objeto.respuesta.SetLabel(trans_dict['responseData']['translatedText'])
+        objeto.conexion.SetLabel(u"Finalizado.")
+        objeto.respuesta.SetLabel(unicode(trans_dict['responseData']['translatedText']))
     
     
 
