@@ -8,7 +8,6 @@ import wx
 
 from urllib2 import urlopen, URLError 
 from urllib import urlencode
-import sys
 try:
     import json
 except ImportError:

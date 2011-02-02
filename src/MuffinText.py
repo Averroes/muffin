@@ -98,8 +98,8 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
 ########   AUTO-GUARDADO, MULTIHILO   #########
 class AutoGuardado(threading.Thread):
     '''
-    AutoGuardado: Clase que hereda de Therad, y guarda cada
-    cierto tiempo los datos.
+    AutoGuardado: Clase que hereda de Therad, y 
+    guarda cada cierto tiempo los datos.
     '''
     def __init__(self, _wxText):
         threading.Thread.__init__(self)

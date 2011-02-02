@@ -6,7 +6,7 @@ Created on 6/12/2010
 @author: erunamo
 '''
 
-import wx
+from wx import PySimpleApp, InitAllImageHandlers
 import MuffinGUI
 
 if __name__ == '__main__':
@@ -17,8 +17,8 @@ if __name__ == '__main__':
     print ("RECUERDE: debe tener instalado el mplayer(*nix) desde los repositorios,")
     print ("o el mplayer.exe(win) en el mismo directorio del ejecutable.")
     print ("--------------------------")
-    app = wx.PySimpleApp(0)
-    wx.InitAllImageHandlers()
+    app = PySimpleApp(0)
+    InitAllImageHandlers()
     Muffin= MuffinGUI.MuffinFrame (None, -1, "")
     app.SetTopWindow(Muffin)
     Muffin.Show()

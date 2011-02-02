@@ -12,7 +12,7 @@ import MuffinText, MuffinDics
 class MuffinFrame(wx.Frame):
     '''
     MuffinFrame contiene los datos básicos para construir la ventana 
-    con sus partes de MuffinTranslator.
+    de MuffinTranslator con sus partes.
     '''
     def __init__(self, *args, **kwds):
         '''
