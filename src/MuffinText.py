@@ -12,7 +12,7 @@ import threading, time
 
 class MuffinText(wx.TextCtrl):
     '''
-    classdocs: Clase encargada del area de texto
+    MuffinText: Clase encargada del area de texto.
     '''
 
     def __init__(self, parent):
@@ -24,7 +24,7 @@ class MuffinText(wx.TextCtrl):
         self.path=None
         self.__parent=parent
         
-        texto_inicial="""
+        texto_inicial="""#(Modelo para traducir)
 Actor 1: Well do I understand your speech, yet few strangers do so.
          Why then do you not speak in the Common Tongue,
          as is the custom in the West, if you wish to be answered?
@@ -51,16 +51,23 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
             self.esta_guardado=False
            
         
-    def __guardar_texto(self,_doc_path):
-        self.path=_doc_path
-        self.SaveFile(self.path)#soluciona problema con unicode
-        self.SaveFile(self.path+'~')#guarda también un backup
-        print (u"»» Archivo guardado correctamente + backup")
-        if not self.esta_guardado:
-            self.esta_guardado=True
-            self.hiloGuardado=AutoGuardado(self)
-            self.hiloGuardado.start()
-            
+    def __guardar_texto(self,_doc_path=None):
+        '''
+        Guarda el texto en un archivo, y hace un backup del mismo.
+        '''
+        if not _doc_path is None:
+            self.path=_doc_path
+        if not self.path is None:
+            self.SaveFile(self.path)#soluciona problema con unicode
+            self.SaveFile(self.path+'~')#guarda también un backup
+            print (u"»» Archivo guardado correctamente + backup")
+            if not self.esta_guardado:
+                self.esta_guardado=True
+                self.hiloGuardado=AutoGuardado(self)
+                self.hiloGuardado.start()
+        
+        else:#si no hay path...
+            self.onSaveFileWhit(wx.Event)    
         
         
     #Evento para abrir Archivos
@@ -74,9 +81,9 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
                 self.__abrir_texto( unicode( path.replace('\\','/')  )  )
                 dlg.Destroy()
                 
-    #Evento para guardar Archivos
-    def onSaveFile(self,event):
-            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
+    #Evento para "Guardar Archivo como..."
+    def onSaveFileWhit(self, event):
+            dlg = wx.FileDialog(None, message="Guarde como un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.SAVE | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
@@ -84,11 +91,16 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
                 self.__guardar_texto( unicode( path.replace('\\','/')  )  )
                 dlg.Destroy()
                 
-    
+    def onSaveFile(self, event):
+        self.__guardar_texto()
     
 ###############################################
 ########   AUTO-GUARDADO, MULTIHILO   #########
 class AutoGuardado(threading.Thread):
+    '''
+    AutoGuardado: Clase que hereda de Therad, y guarda cada
+    cierto tiempo los datos.
+    '''
     def __init__(self, _wxText):
         threading.Thread.__init__(self)
         self.setDaemon(True)
@@ -96,7 +108,9 @@ class AutoGuardado(threading.Thread):
         self.seguir_guardando=self.__wxText.esta_guardado
         
     def run(self):
-        
+        '''
+        Inicia Bucle de auto-guardado. 
+        '''
         while True : #si ya se ha guardado
             time.sleep(30)
             if self.seguir_guardando:
@@ -107,6 +121,9 @@ class AutoGuardado(threading.Thread):
                 break
     
     def kill(self):
+        '''
+        Hace que el bucle se termine en la proxima iteración.
+        '''
         self.seguir_guardando=False
         print (self.getName()+" pronto... morirá u.u")
         #self.join()

@@ -55,6 +55,8 @@ class MuffinFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
         wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
+        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto como...", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onSaveFileWhit, wxGuardarTexto)
         self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
         
         wxglade_tmp_menu = wx.Menu()

@@ -6,7 +6,7 @@ Created on 22/01/2011
 '''
 import wx
 
-from urllib2 import urlopen
+from urllib2 import urlopen, URLError 
 from urllib import urlencode
 import sys
 try:
@@ -50,12 +50,12 @@ class DiccionariosTab(wx.Notebook):
 #------------------
 class DiccGenerico(wx.Panel):
     '''
-    DiccGenerico es un wx.Panel, que crea un conjunto de widgets generico,
+    DiccGenerico es un wx.Panel, que crea un conjunto de widgets genericos,
     su intención es la de funcionar para cualquier tipo de consulta online.
     '''
     def __init__(self, _padre, _nombre="servicio?", f_consulta=None):
         '''
-        _padre=padre de wx.Panel; _nombre=nombre del servici; 
+        _padre=padre de wx.Panel; _nombre=nombre del servicio; 
         f_consulta= función que hará la consulta en internet.
         '''
         wx.Panel.__init__(self, _padre, -1, name=_nombre)
@@ -69,7 +69,7 @@ class DiccGenerico(wx.Panel):
         
         self.__do_layout()
         self.__eventos()
-
+        
         
     def __do_layout(self):
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
@@ -100,8 +100,6 @@ def GoogleTranslator(objeto):
     internas de este, para tomar y modificar los 
     resultados en pantalla. 
     '''
-    #print ("clic")# prueba xD
-    #objeto.respuesta.SetLabel(objeto.pregunta.GetValue())
     #######Copy/paste de algun blog xD
     lang1='en'
     lang2='es'
@@ -112,14 +110,18 @@ def GoogleTranslator(objeto):
                        ('q',text),
                        ('langpair',langpair),) )
     url=base_url+params
-    content=urlopen(url).read()
     try:
+        content=urlopen(url).read()#falla si no hay internet
+        
+        objeto.conexion.SetLabel("Conectando...")
         trans_dict=json.loads(content)
     except AttributeError:
-        #trans_dict=json.read(content)
-        print(">> Falló <<")
-    #print(trans_dict['responseData']['translatedText'])
-    objeto.respuesta.SetLabel(trans_dict['responseData']['translatedText'])
+        objeto.conexion.SetLabel("Error de traducción.")
+    except URLError:
+        objeto.conexion.SetLabel("Falló la conexión (no internet)")
+    else:
+        objeto.conexion.SetLabel("Finalizado.")
+        objeto.respuesta.SetLabel(trans_dict['responseData']['translatedText'])
     
     
 

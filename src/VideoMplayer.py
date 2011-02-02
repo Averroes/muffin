@@ -54,6 +54,8 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         Empieza a reproducir el último video cargado.
         Puede recibir argumentos como una tupla. 
+        ¡¡OJO!!: si el OSD no funciona, revisar si tiene 
+        un font asignado (más que todo en windows).
         '''
         try:
             self.Start(self.video_path, _argumentos )
@@ -90,7 +92,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         self.onStopVideo(event)
         self.__start(_argumentos=(u"-ass",) )
-        print ("→Subtítulo .ASS con estilos, activado (si lo hay)←")
+        print (u"→Subtítulo .ASS con estilos, activado (si lo hay)←")
     
     
     #---Eventos de reproduccion del video---
