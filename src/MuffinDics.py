@@ -6,6 +6,14 @@ Created on 22/01/2011
 '''
 import wx
 
+from urllib2 import urlopen
+from urllib import urlencode
+import sys
+try:
+    import json
+except ImportError:
+    print('You need to install the python-json package')
+
 
 class DiccionariosTab(wx.Notebook):
     '''
@@ -92,8 +100,28 @@ def GoogleTranslator(objeto):
     internas de este, para tomar y modificar los 
     resultados en pantalla. 
     '''
-    print ("clic")# prueba xD
-    objeto.respuesta.SetLabel(objeto.pregunta.GetValue())
+    #print ("clic")# prueba xD
+    #objeto.respuesta.SetLabel(objeto.pregunta.GetValue())
+    #######Copy/paste de algun blog xD
+    lang1='en'
+    lang2='es'
+    langpair='%s|%s'%(lang1,lang2)
+    text=objeto.pregunta.GetValue() #' '.join()
+    base_url='http://ajax.googleapis.com/ajax/services/language/translate?'
+    params=urlencode( (('v',1.0),
+                       ('q',text),
+                       ('langpair',langpair),) )
+    url=base_url+params
+    content=urlopen(url).read()
+    try:
+        trans_dict=json.loads(content)
+    except AttributeError:
+        #trans_dict=json.read(content)
+        print(">> Falló <<")
+    #print(trans_dict['responseData']['translatedText'])
+    objeto.respuesta.SetLabel(trans_dict['responseData']['translatedText'])
+    
+    
 
 def WordReference():
     pass

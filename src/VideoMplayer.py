@@ -55,16 +55,16 @@ class VideoMplayer(mpc.MplayerCtrl):
         Empieza a reproducir el último video cargado.
         Puede recibir argumentos como una tupla. 
         '''
-        #try:
-        self.Start(self.video_path, _argumentos )
-        print ("& Abriendo: "+ self.video_path)
-        self.sliderVideo.SetValue(0)
-        self.__volumen=100
-        self.Loadfile(self.video_path)
-        self.Osd(2)
-        
-        #except:
-         #   print("Error en __start (comenzar reproducción)")
+        try:
+            self.Start(self.video_path, _argumentos )
+            print ("& Abriendo: "+ self.video_path)
+            self.sliderVideo.SetValue(0)
+            self.__volumen=100
+            #self.Loadfile(self.video_path)
+            self.Osd(2)
+            
+        except:
+            print("Error en __start (al comenzar reproducción)")
         
     #============Manejo de eventos==============
     #---Eventos de carga---
