@@ -135,7 +135,7 @@ def RAE(objeto):
     objeto.conexion.SetLabel(u"Conectando...")
     
     text=objeto.pregunta.GetValue().lower() #' '.join()
-    base_url='http://rae-quel.appspot.com/w/json/'
+    base_url=u'http://rae-quel.appspot.com/w/json/'
 
     url=base_url+unicode(text) 
     try:

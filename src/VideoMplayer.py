@@ -12,7 +12,7 @@ import MplayerCtrl as mpc
 if os.name == 'nt':
     mplayer_path=u"mplayer.exe"
 else:
-    mplayer_path=u"mplayer-mt"
+    mplayer_path=u"mplayer"
     #mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
 
 class VideoMplayer(mpc.MplayerCtrl):
