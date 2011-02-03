@@ -7,7 +7,7 @@ Created on 22/01/2011
 import wx
 
 from urllib2 import urlopen, URLError 
-from urllib import urlencode
+from urllib import urlencode, quote
 try:
     import json
 except ImportError:
@@ -42,9 +42,10 @@ class DiccionariosTab(wx.Notebook):
     def __servicios(self):
         self.home=wx.StaticText(self, -1, self.faq, name='Home')
         self.AddPage(self.home, self.home.Name) 
+        self.rae=DiccGenerico(self, "RAE", RAE )#, nombre metodo de envio y respuesta)
+        self.AddPage(self.rae, self.rae.Name) 
         self.google=DiccGenerico(self, "Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
         self.AddPage(self.google, self.google.Name) 
-        
         
 #------------------
 class DiccGenerico(wx.Panel):
@@ -110,9 +111,9 @@ def GoogleTranslator(objeto):
                        ('langpair',langpair),) )
     url=base_url+params
     try:
-        content=urlopen(url).read()#falla si no hay internet
-        
         objeto.conexion.SetLabel(u"Conectando...")
+        
+        content=urlopen(url).read()#falla si no hay internet
         trans_dict=json.loads(content)
     except AttributeError:
         objeto.conexion.SetLabel(u"Error de traducción.")
@@ -124,8 +125,31 @@ def GoogleTranslator(objeto):
     
     
 
-def WordReference():
-    pass
+def RAE(objeto):
+    ''' 
+    El parametro "objeto", se refiere a un objeto tipo 
+    DiccGenerico(), con eso se tiene acceso a las partes 
+    internas de este, para tomar y modificar los 
+    resultados en pantalla. 
+    '''
+    objeto.conexion.SetLabel(u"Conectando...")
+    
+    text=objeto.pregunta.GetValue().lower() #' '.join()
+    base_url='http://rae-quel.appspot.com/w/json/'
 
-def RAE():
+    url=base_url+unicode(text) 
+    try:
+        content=urlopen(url).read()#falla si no hay internet
+        trans_dict=json.loads(content)
+    except AttributeError:
+        objeto.conexion.SetLabel(u"Error de traducción.")
+    except URLError:
+        objeto.conexion.SetLabel(u"Falló la conexión (no internet)")
+    else:
+        comp=text+'\n->'+('\n->'.join(trans_dict))
+        
+        objeto.respuesta.SetLabel( comp )
+        objeto.conexion.SetLabel(u"Finalizado.")
+
+def WordReference():
     pass

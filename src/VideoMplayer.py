@@ -12,7 +12,7 @@ import MplayerCtrl as mpc
 if os.name == 'nt':
     mplayer_path=u"mplayer.exe"
 else:
-    mplayer_path=u"mplayer"
+    mplayer_path=u"mplayer-mt"
     #mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
 
 class VideoMplayer(mpc.MplayerCtrl):
@@ -135,7 +135,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         self.Seek(self.sliderVideo.GetValue(), 1)#1=porcentaje
     
     def getPos(self, event):
-        #sliderVideo.SetValue( video_mplayer_panel.GetProperty('percent_pos') ) 
+        self.sliderVideo.SetValue( int(self.GetPercentPos() ) ) 
         pass
 
     #----Eventos Slider Audio
