@@ -7,7 +7,6 @@ Created on 6/12/2010
 import wx
 import VideoMplayer
 import MuffinText, MuffinDics
-import MplayerCtrl as mpc
 
 
 class MuffinFrame(wx.Frame):
@@ -141,7 +140,6 @@ class MuffinFrame(wx.Frame):
         self.texto.Bind(wx.EVT_KEY_UP, self.VideoMplayer.onKeyPuase)
         
         self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, self.VideoMplayer.setPos)
-        self.VideoMplayer.Bind(wx.EVT_DISPLAY_CHANGED, self.VideoMplayer.getPos)
 
 
 # end of class MuffinFrame

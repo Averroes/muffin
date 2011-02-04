@@ -7,6 +7,7 @@ Created on 6/12/2010
 import wx
 import os
 import MplayerCtrl as mpc
+import threading, time
 
 #----Variables globales----
 if os.name == 'nt':
@@ -29,6 +30,8 @@ class VideoMplayer(mpc.MplayerCtrl):
         self.padre, self.sliderVideo = parent, _sliderVideo
         self.__volumen=100
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
+        self.sDaem=sliderDaemon(self.sliderVideo, self)
+        
 
 
     def __openVideo(self, video_path2):
@@ -62,7 +65,6 @@ class VideoMplayer(mpc.MplayerCtrl):
             print ("& Abriendo: "+ self.video_path)
             self.sliderVideo.SetValue(0)
             self.__volumen=100
-            #self.Loadfile(self.video_path)
             self.Osd(2)
             
         except:
@@ -103,12 +105,13 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.__start()    
         else:
             self.Pause()#despausa
+            print ('pausa')
             
     
     def onStopVideo(self, event):
         while not self.Quit():
             pass
-        print ("# Video Detenido")
+        print (u"# Video Detenido")
             
     
     def onAdvanceVideo(self, event, time=5):
@@ -120,24 +123,25 @@ class VideoMplayer(mpc.MplayerCtrl):
         
     def onKeyPuase(self, event):
         #print event.GetKeyCode()
-        if event.GetKeyCode() == 27:#tecla ESC
+        if event.GetKeyCode() == wx.WXK_ESCAPE:
             #print ("**Pausa, tecla ESC desapretada...**")
             self.onPlayVideo(event)
-        elif event.GetKeyCode() == 340:#tecla F1
+        elif event.GetKeyCode() == wx.WXK_F1:
             self.onBackVideo(event)
-        elif event.GetKeyCode() == 341:#tecla F2
+        elif event.GetKeyCode() == wx.WXK_F2:#tecla F2
             self.onAdvanceVideo(event)
         else:
             event.Skip()
             
     #-----Eventos Slider-----
     def setPos(self, event):
-        self.Seek(self.sliderVideo.GetValue(), 1)#1=porcentaje
-    
-    def getPos(self, event):
-        self.sliderVideo.SetValue( int(self.GetPercentPos() ) ) 
-        pass
-
+        try:
+            self.Seek(self.sliderVideo.GetValue(), 1)#1=porcentaje
+        except:
+            pass
+      
+        
+        
     #----Eventos Slider Audio
     def volUp(self, event):
         if self.__volumen < 100:
@@ -145,7 +149,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.SetProperty('volume', float(self.__volumen))
         else:
             self.OsdShowText('Max vol', 1)
-            print 'Max vol'
+            print ('Max vol')
         
     def volDown(self, event):
         if self.__volumen > 0:
@@ -153,5 +157,32 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.SetProperty('volume', float(self.__volumen))
         else:
             self.OsdShowText('Min vol', 1)
-            print 'Min vol'
+            print ('Min vol')
          
+         
+
+#---Daemon del slider del video----
+class sliderDaemon(threading.Thread):
+    '''
+    Daemon que actualiza la posición del silider 
+    del video todo el tiempo.
+    '''
+    def __init__(self, _slider, _video):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+        self.__slider=_slider
+        self.__video=_video
+        self.start()        
+        
+    def run(self):
+        '''
+        Inicia es con self.start()
+        '''
+        while True :
+            time.sleep(1)
+            try:
+                self.__slider.SetValue( int( self.__video.GetPercentPos() ) )
+            except TypeError:
+                self.__slider.SetValue( 0 )
+            except:
+                pass
