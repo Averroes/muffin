@@ -8,7 +8,7 @@ Created on 22/01/2011
 @web: http://code.google.com/p/muffin/
 '''
 import wx
-
+import webbrowser as wb
 from urllib2 import urlopen, URLError 
 from urllib import urlencode#, quote
 try:
@@ -44,9 +44,11 @@ class DiccionariosTab(wx.Notebook):
         
     def __servicios(self):
         self.home=wx.StaticText(self, -1, self.faq, name='Home')
-        self.AddPage(self.home, self.home.Name) 
+        self.AddPage(self.home, self.home.Name)
         self.rae=DiccGenerico(self, "RAE", RAE )#, nombre metodo de envio y respuesta)
-        self.AddPage(self.rae, self.rae.Name) 
+        self.AddPage(self.rae, self.rae.Name)
+        self.wr=DiccGenerico(self, "WR", WordReference )#, nombre metodo de envio y respuesta)
+        self.AddPage(self.wr, self.wr.Name)
         self.google=DiccGenerico(self, "Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
         self.AddPage(self.google, self.google.Name) 
         
@@ -163,6 +165,25 @@ def RAE(objeto):
         objeto.respuesta.SetLabel( comp )
         objeto.conexion.SetLabel(u"Finalizado.")
 
-def WordReference():
-    pass
+def WordReference(objeto):
+    ''' 
+    El parametro "objeto", se refiere a un objeto tipo 
+    DiccGenerico(), con eso se tiene acceso a las partes 
+    internas de este, para tomar y modificar los 
+    resultados en pantalla. 
+    @note: http://www.wordreference.com/
+    '''
+    objeto.conexion.SetLabel(u"Conectando...")
+    
+    text=(objeto.pregunta.GetValue().partition(' ') )
+    base_url=u'http://mini.wordreference.com/mini/index.aspx?dict=enes&w='
+    url=base_url+unicode(text[0])
+    
+    objeto.respuesta.SetLabel(u"WordReference\n\nMuffin abrirá la respuesta en \nsu navegador por default.")
+    
+    if wb.open( url ):
+        objeto.conexion.SetLabel(u"Finalizado.")
+    else:
+        objeto.conexion.SetLabel(u"Falló la conexión")
+        
 
