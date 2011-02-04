@@ -3,7 +3,10 @@
 '''
 Created on 6/12/2010
 
-@author: erunamo
+@author: ErunamoJAZZ
+@license: GPLv3
+@summary: Muffin Translator, ayudante para la traducción de anime.
+@web: http://code.google.com/p/muffin/
 '''
 
 from wx import PySimpleApp, InitAllImageHandlers

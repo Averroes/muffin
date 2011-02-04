@@ -2,11 +2,13 @@
 '''
 Created on 15/01/2011
 
-@author: erunamo
+@author: ErunamoJAZZ
+@license: GPLv3
+@summary: Muffin Translator, ayudante para la traducción de anime.
+@web: http://code.google.com/p/muffin/
 '''
 import wx
-import os#, sys
-
+import os
 import threading, time
 
 

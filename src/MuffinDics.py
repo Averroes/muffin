@@ -2,7 +2,10 @@
 '''
 Created on 22/01/2011
 
-@author: erunamo
+@author: ErunamoJAZZ
+@license: GPLv3
+@summary: Muffin Translator, ayudante para la traducción de anime.
+@web: http://code.google.com/p/muffin/
 '''
 import wx
 
@@ -101,6 +104,7 @@ def GoogleTranslator(objeto):
     resultados en pantalla. 
     De google solo traduce máximo 5 palabras (para evitar
     su uso excesivo por perrys).
+    @note: http://code.google.com/intl/es-CO/apis/language/translate/overview.html
     '''
     #######Copy/paste de algun blog xD
     text=objeto.pregunta.GetValue()
@@ -138,6 +142,7 @@ def RAE(objeto):
     DiccGenerico(), con eso se tiene acceso a las partes 
     internas de este, para tomar y modificar los 
     resultados en pantalla. 
+    @note: http://rae-quel.appspot.com/
     '''
     objeto.conexion.SetLabel(u"Conectando...")
     
