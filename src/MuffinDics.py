@@ -7,7 +7,7 @@ Created on 22/01/2011
 import wx
 
 from urllib2 import urlopen, URLError 
-from urllib import urlencode, quote
+from urllib import urlencode#, quote
 try:
     import json
 except ImportError:
@@ -99,31 +99,38 @@ def GoogleTranslator(objeto):
     DiccGenerico(), con eso se tiene acceso a las partes 
     internas de este, para tomar y modificar los 
     resultados en pantalla. 
+    De google solo traduce máximo 5 palabras (para evitar
+    su uso excesivo por perrys).
     '''
     #######Copy/paste de algun blog xD
-    lang1='en'
-    lang2='es'
-    langpair='%s|%s'%(lang1,lang2)
-    text=objeto.pregunta.GetValue() #' '.join()
-    base_url='http://ajax.googleapis.com/ajax/services/language/translate?'
-    params=urlencode( (('v',1.0),
-                       ('q',text),
-                       ('langpair',langpair),) )
-    url=base_url+params
-    try:
-        objeto.conexion.SetLabel(u"Conectando...")
+    text=objeto.pregunta.GetValue()
+    
+    if not text == '':#si no está vacío
+        t_aux = text.split()
+        text = ' '.join(t_aux[:5])#restricción de 5 palabras.
         
-        content=urlopen(url).read()#falla si no hay internet
-        trans_dict=json.loads(content)
-    except AttributeError:
-        objeto.conexion.SetLabel(u"Error de traducción.")
-    except URLError:
-        objeto.conexion.SetLabel(u"Falló la conexión (no internet)")
-    else:
-        objeto.conexion.SetLabel(u"Finalizado.")
-        objeto.respuesta.SetLabel(unicode(trans_dict['responseData']['translatedText']))
-    
-    
+        lang1, lang2 ='en', 'es'
+        langpair = '%s|%s'%(lang1,lang2)
+        base_url = 'http://ajax.googleapis.com/ajax/services/language/translate?'
+        params = urlencode( (('v',1.0),
+                            ('q',text),
+                            ('langpair',langpair),) )
+        url=base_url+params
+        try:
+            objeto.conexion.SetLabel(u"Conectando...")
+            
+            content=urlopen(url).read()#falla si no hay internet
+            trans_dict=json.loads(content)
+        except AttributeError:
+            objeto.conexion.SetLabel(u"Error de traducción.")
+        except URLError:
+            objeto.conexion.SetLabel(u"Falló la conexión")
+        else:
+            objeto.conexion.SetLabel(u"Finalizado.")
+            objeto.respuesta.SetLabel(unicode(trans_dict['responseData']['translatedText']))
+    else:#Si está vacío
+        objeto.respuesta.SetLabel(u"Aquí saldrá la respuesta a su consulta")
+
 
 def RAE(objeto):
     ''' 
@@ -134,7 +141,7 @@ def RAE(objeto):
     '''
     objeto.conexion.SetLabel(u"Conectando...")
     
-    text=objeto.pregunta.GetValue().lower() #' '.join()
+    text=objeto.pregunta.GetValue().lower()#minusculas
     base_url=u'http://rae-quel.appspot.com/w/json/'
 
     url=base_url+unicode(text) 
@@ -144,7 +151,7 @@ def RAE(objeto):
     except AttributeError:
         objeto.conexion.SetLabel(u"Error de traducción.")
     except URLError:
-        objeto.conexion.SetLabel(u"Falló la conexión (no internet)")
+        objeto.conexion.SetLabel(u"Falló la conexión")
     else:
         comp=text+'\n->'+('\n->'.join(trans_dict))
         
@@ -153,3 +160,4 @@ def RAE(objeto):
 
 def WordReference():
     pass
+
