@@ -17,9 +17,8 @@ if __name__ == '__main__':
     Main de Muffin, aquí se inicializa la ventana.
     '''
     print ("Iniciando Muffin Translator")
-    print ("RECUERDE: debe tener instalado el mplayer(*nix) desde los repositorios,")
-    print ("o el mplayer.exe(win) en el mismo directorio del ejecutable.")
-    print ("--------------------------")
+    print ("RECUERDE: puede reportar bugs o sugerencias en la dirección:\n http://code.google.com/p/muffin/issues/list")
+    print ("--------------------------\n")
     app = PySimpleApp(0)
     InitAllImageHandlers()
     Muffin= MuffinGUI.MuffinFrame (None, -1, "")

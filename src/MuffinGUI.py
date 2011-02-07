@@ -67,6 +67,12 @@ class MuffinFrame(wx.Frame):
                                             "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadSub, wxSubtitulo)
         self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
+
+        wxglade_tmp_menu = wx.Menu()
+        wxAbout=wxglade_tmp_menu.Append(wx.NewId(), 
+                                            "Acerca de...", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.onAbout, wxAbout)
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
         
         self.SetMenuBar(self.Muffin_menubar)
         # Menu Bar end
@@ -144,5 +150,20 @@ class MuffinFrame(wx.Frame):
         
         self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, self.VideoMplayer.setPos)
 
-
+    
+    #Muestra el about
+    def onAbout(self, event):
+        AboutFrame().Show()
+        
+        
 # end of class MuffinFrame
+
+
+#---About Window
+class AboutFrame(wx.Frame):
+
+    title = "About this program"
+
+    def __init__(self):
+        wx.Frame.__init__(self, wx.GetApp().TopWindow, title=self.title)
+        self.Center()
