@@ -72,9 +72,11 @@ class MuffinFrame(wx.Frame):
         wxAbout=wxglade_tmp_menu.Append(wx.NewId(), 
                                             "Acerca de...", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.onAbout, wxAbout)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
+        #self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
+        #OJO, ESTO SE PONE EN LA VERSIÓN 0.2.0!!!!!
         
         self.SetMenuBar(self.Muffin_menubar)
+        
         # Menu Bar end
         
         self.__set_properties()
