@@ -16,9 +16,9 @@ if __name__ == '__main__':
     '''
     Main de Muffin, aquí se inicializa la ventana.
     '''
-    print ("Iniciando Muffin Translator")
-    print ("RECUERDE: puede reportar bugs o sugerencias en la dirección:\n http://code.google.com/p/muffin/issues/list")
-    print ("--------------------------\n")
+    print (u"Iniciando Muffin Translator\n")
+    print (u"RECUERDE: puede reportar bugs o sugerencias en la dirección:\n http://code.google.com/p/muffin/issues/list")
+    print (u"====================================\n")
     app = PySimpleApp(0)
     InitAllImageHandlers()
     Muffin= MuffinGUI.MuffinFrame (None, -1, "")
@@ -26,4 +26,5 @@ if __name__ == '__main__':
     Muffin.Show()
     app.MainLoop()
     
-    print ('Finalizando Muffin Translator')
+    print (u'====================================')
+    print (u'Finalizando Muffin Translator')

@@ -10,6 +10,7 @@ Created on 15/01/2011
 import wx
 import os
 import threading, time
+import codecs
 
 
 class MuffinText(wx.TextCtrl):
@@ -26,7 +27,7 @@ class MuffinText(wx.TextCtrl):
         self.path=None
         self.__parent=parent
         
-        texto_inicial="""#(Modelo para traducir)
+        texto_inicial=u"""#(Modelo para traducir)
 Actor 1: Well do I understand your speech, yet few strangers do so.
          Why then do you not speak in the Common Tongue,
          as is the custom in the West, if you wish to be answered?
@@ -42,10 +43,11 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
         
 
     def __abrir_texto(self,_path):
-        file=open(_path,"rU")
+        file= codecs.open(_path, 'rU', 'utf-8')#OJO
+        #file=open(_path,"rU")
         texto = file.read()
         file.close()
-        #self.Create(self.__parent,value=texto, style=wx.TE_MULTILINE|wx.HSCROLL)#NO
+        
         self.SetValue(texto)
         if self.esta_guardado:
             self.hiloGuardado.kill()

@@ -11,10 +11,11 @@ import wx
 import webbrowser as wb
 from urllib2 import urlopen, URLError 
 from urllib import urlencode#, quote
+
 try:
     import json
 except ImportError:
-    print('You need to install the python-json package')
+    print('Necesitas instalar el paquete python-json')
 
 
 class DiccionariosTab(wx.Notebook):

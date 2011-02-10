@@ -17,7 +17,7 @@ if os.name == 'nt':
     mplayer_path=u"mplayer.exe"
 else:
     mplayer_path=u"mplayer"
-    #mpc.VO_DRIVER=mpc.VO_DRIVER,"gl,"
+    #mpc.VO_DRIVER="sdl,",mpc.VO_DRIVER,"gl,"
 
 class VideoMplayer(mpc.MplayerCtrl):
     '''
@@ -34,6 +34,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         self.__volumen=100
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
         self.sDaem=sliderDaemon(self.sliderVideo, self)
+        
         
 
 
@@ -68,6 +69,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             print ("& Abriendo: "+ self.video_path)
             self.sliderVideo.SetValue(0)
             self.__volumen=100
+            self.FrameDrop(1)
             self.Osd(2)
             
         except:
