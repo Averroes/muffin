@@ -37,15 +37,28 @@ Actor 2: What are you babbling about?
 NOTA: Use la tecla 'ESC' para pausar y despausar el video.
       Puede usar las teclas F1 y F2 para ir 5 segundos atras o adelante en el video.
       MuffinTranslator ahora tiene sistema de auto-guardado cada 30seg, después de guardar la primer vez.
-      #NO OLVIDES REPORTAR LOS ERRORES"""
+      #NO OLVIDES REPORTAR LOS ERRORES EN: http://code.google.com/p/muffin/issues/list"""
                 
         wx.TextCtrl.__init__(self, self.__parent, -1, texto_inicial, style=wx.TE_MULTILINE|wx.HSCROLL)
         
 
     def __abrir_texto(self,_path):
-        file= codecs.open(_path, 'rU', 'utf-8')#OJO
-        #file=open(_path,"rU")
-        texto = file.read()
+        '''
+        Abre un texto intentando primero desde utf-8, y
+        luego desde Latin-1 (ANSI). Este ultimo abrirá
+        mal textos en otras codificaciones, como unicode. 
+        '''
+        try:
+            file= codecs.open(_path, 'rU', 'utf-8')#OJO
+            #file=open(_path,"rU")
+            texto = file.read()
+            print (u'Texto abierto con codificación utf-8')
+        except:
+            file.close()
+            file= codecs.open(_path, 'rU', 'Latin-1')
+            texto = file.read()
+            print (u'Texto abierto con codificación Latin-1 (ANSI)')
+
         file.close()
         
         self.SetValue(texto)

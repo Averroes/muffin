@@ -50,9 +50,9 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.__start()
             #video_mplayer_panel.Loadfile(video_path)
         except UnicodeDecodeError:
-            print ('error de Unicode (en teoría, no debería pasar)')
+            print (u'error de Unicode (en teoría, no debería pasar)')
         except mpc.BuildProcessError:
-            print ("¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!")
+            print (u"¡¡¡ERROR FATAL, Mplayer NO ENCONTRADO, no puede mostrarse el video!!!")
     
         return
     
@@ -66,14 +66,14 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         try:
             self.Start(self.video_path, _argumentos )
-            print ("& Abriendo: "+ self.video_path)
+            print (u"& Abriendo: "+ self.video_path)
             self.sliderVideo.SetValue(0)
             self.__volumen=100
-            self.FrameDrop(1)
+            #self.FrameDrop(1)
             self.Osd(2)
             
         except:
-            print("Error en __start (al comenzar reproducción)")
+            print(u"Error en __start (al comenzar reproducción)")
         
     #============Manejo de eventos==============
     #---Eventos de carga---
@@ -99,18 +99,18 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         self.onStopVideo(event)
         self.__start(_argumentos=(u"-ass",) )
-        print (u"→Subtítulo .ASS con estilos, activado (si lo hay)←")
+        print (u">> Subtítulo .ASS con estilos, activado (si lo hay) <<")
     
     
     #---Eventos de reproduccion del video---
     
     def onPlayVideo(self, event):
         if not self.process_alive :
-            print ("¡¡no hay proceso de Mplayer!!")
+            print (u"¡¡no hay proceso de Mplayer!!")
             self.__start()    
         else:
             self.Pause()#despausa
-            print ('pausa')
+            #print ('pausa')
             
     
     def onStopVideo(self, event):
