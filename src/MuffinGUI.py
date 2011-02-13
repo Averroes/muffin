@@ -7,7 +7,7 @@ Created on 6/12/2010
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
-import wx
+import wx, os.path
 import VideoMplayer
 import MuffinText, MuffinDics
 
@@ -30,22 +30,23 @@ class MuffinFrame(wx.Frame):
         self.panelVideo = wx.Panel(self, -1)
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
+        dir = '.'
         
         # Parte del Video
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
         self.VideoMplayer = VideoMplayer.VideoMplayer(self.panelVideo, self.PosicionVideo) #wx.Panel(self.panelVideo, -1)
         self.botonPlay = wx.BitmapButton(self.panelVideo, -1, 
-                                         wx.Bitmap("img/play.png", wx.BITMAP_TYPE_ANY))
+                                         wx.Bitmap(dir+"/img/play.png", wx.BITMAP_TYPE_ANY))
         self.botonStop = wx.BitmapButton(self.panelVideo, -1, 
-                                         wx.Bitmap("img/stop.png", wx.BITMAP_TYPE_ANY))
+                                         wx.Bitmap(dir+"/img/stop.png", wx.BITMAP_TYPE_ANY))
         self.botonAtras = wx.BitmapButton(self.panelVideo, -1, 
-                                          wx.Bitmap("img/atras.png", wx.BITMAP_TYPE_ANY))
+                                          wx.Bitmap(dir+"/img/atras.png", wx.BITMAP_TYPE_ANY))
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap("img/adelante.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(dir+"/img/adelante.png", wx.BITMAP_TYPE_ANY))
         self.volumenUp = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap("img/vol_up.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(dir+"/img/vol_up.png", wx.BITMAP_TYPE_ANY))
         self.volumenDown = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap("img/vol_down.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(dir+"/img/vol_down.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
         
         # Menu Bar

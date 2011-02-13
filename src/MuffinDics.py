@@ -95,7 +95,7 @@ class DiccGenerico(wx.Panel):
         Consultor es un warper para llamar a la función 
         encargada de la consulta en internet.
         '''
-        self.func_consulta(self)#warper
+        self.func_consulta(self)#warper   thread.start_new_thread(self.func_consulta, self ) #
         
         
 #------- Funciones consulta de cada servicio.
