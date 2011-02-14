@@ -18,6 +18,7 @@ if os.name == 'nt':
 else:
     mplayer_path=u"mplayer"
     #mpc.VO_DRIVER="sdl,",mpc.VO_DRIVER,"gl,"
+    mpc.AO_DRIVER="oss,"
 
 class VideoMplayer(mpc.MplayerCtrl):
     '''
@@ -69,7 +70,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             print (u"& Abriendo: "+ self.video_path)
             self.sliderVideo.SetValue(0)
             self.__volumen=100
-            #self.FrameDrop(1)
+            self.Loadfile(self.video_path)
             self.Osd(2)
             
         except:
