@@ -15,6 +15,7 @@ import threading, time
 #----Variables globales----
 if os.name == 'nt':
     mplayer_path=u"mplayer.exe"
+    mpc.AO_DRIVER="dsound,"
 else:
     mplayer_path=u"mplayer"
     #mpc.VO_DRIVER="sdl,",mpc.VO_DRIVER,"gl,"
@@ -70,7 +71,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             print (u"& Abriendo: "+ self.video_path)
             self.sliderVideo.SetValue(0)
             self.__volumen=100
-            self.Loadfile(self.video_path)
+            #self.Loadfile(self.video_path)
             self.Osd(2)
             
         except:
@@ -88,9 +89,9 @@ class VideoMplayer(mpc.MplayerCtrl):
                             style=wx.OPEN | wx.CHANGE_DIR )
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
-            path = path.replace('\\','/')
+            #path = path.replace('\\','/')
             #path = path.encode(sys.getfilesystemencoding())#MplayerCtrl0.3.0 no lo necesita
-            self.__openVideo(path)
+            self.__openVideo(unicode( path.replace('\\','/')  )  )
             dlg.Destroy()
             
     
