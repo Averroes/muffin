@@ -15,11 +15,10 @@ import threading, time
 #----Variables globales----
 if os.name == 'nt':
     mplayer_path=u"mplayer.exe"
-    mpc.AO_DRIVER="dsound,"
 else:
     mplayer_path=u"mplayer"
-    #mpc.VO_DRIVER="sdl,",mpc.VO_DRIVER,"gl,"
-    mpc.AO_DRIVER="oss,"
+    mpc.AO_DRIVER="oss,"+mpc.AO_DRIVER
+
 
 class VideoMplayer(mpc.MplayerCtrl):
     '''
@@ -34,12 +33,11 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         self.padre, self.sliderVideo = parent, _sliderVideo
         self.__volumen=100
+        self.pausado=True#comienza pausado
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
         self.sDaem=sliderDaemon(self.sliderVideo, self)
         
         
-
-
     def __openVideo(self, video_path2):
         '''
         Abre el video cargado, y lo manda a reproducir.
@@ -47,10 +45,9 @@ class VideoMplayer(mpc.MplayerCtrl):
         if self.process_alive :
             self.onStopVideo(wx.Event)
         self.video_path=video_path2
-    
+        
         try:
             self.__start()
-            #video_mplayer_panel.Loadfile(video_path)
         except UnicodeDecodeError:
             print (u'error de Unicode (en teoría, no debería pasar)')
         except mpc.BuildProcessError:
@@ -66,16 +63,14 @@ class VideoMplayer(mpc.MplayerCtrl):
         ¡¡OJO!!: si el OSD no funciona, revisar si tiene 
         un font asignado (más que todo en windows).
         '''
-        try:
-            self.Start(self.video_path, _argumentos )
-            print (u"& Abriendo: "+ self.video_path)
-            self.sliderVideo.SetValue(0)
-            self.__volumen=100
-            #self.Loadfile(self.video_path)
-            self.Osd(2)
-            
-        except:
-            print(u"Error en __start (al comenzar reproducción)")
+    
+        self.pausado=False
+        self.Start(self.video_path, _argumentos )
+        print (u"& Abriendo: "+ self.video_path)
+        self.sliderVideo.SetValue(0)
+        self.__volumen=100
+        self.Osd(2)
+        
         
     #============Manejo de eventos==============
     #---Eventos de carga---
@@ -89,9 +84,8 @@ class VideoMplayer(mpc.MplayerCtrl):
                             style=wx.OPEN | wx.CHANGE_DIR )
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
-            #path = path.replace('\\','/')
             #path = path.encode(sys.getfilesystemencoding())#MplayerCtrl0.3.0 no lo necesita
-            self.__openVideo(unicode( path.replace('\\','/')  )  )
+            self.__openVideo( path.replace(u'\\',u'/')  )  
             dlg.Destroy()
             
     
@@ -111,6 +105,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             print (u"¡¡no hay proceso de Mplayer!!")
             self.__start()    
         else:
+            self.pausado = not self.pausado
             self.Pause()#despausa
             #print ('pausa')
             
@@ -122,10 +117,10 @@ class VideoMplayer(mpc.MplayerCtrl):
             
     
     def onAdvanceVideo(self, event, time=5):
-        self.Seek(str(time))
+        self.Seek(unicode(time))
     
     def onBackVideo(self, event, time=-5):
-        self.Seek(str(time))
+        self.Seek(unicode(time))
         
         
     def onKeyPuase(self, event):
@@ -139,14 +134,14 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.onAdvanceVideo(event)
         else:
             event.Skip()
-            
+        
+        
     #-----Eventos Slider-----
     def setPos(self, event):
         try:
             self.Seek(self.sliderVideo.GetValue(), 1)#1=porcentaje
         except:
             pass
-      
         
         
     #----Eventos Slider Audio
@@ -165,9 +160,9 @@ class VideoMplayer(mpc.MplayerCtrl):
         else:
             self.OsdShowText('Min vol', 1)
             print ('Min vol')
+            
          
          
-
 #---Daemon del slider del video----
 class sliderDaemon(threading.Thread):
     '''
@@ -183,13 +178,15 @@ class sliderDaemon(threading.Thread):
         
     def run(self):
         '''
-        Inicia es con self.start()
+        Inicia es con self.start(), si el video
+        está pausado, no hace nada [Fix "saltitos"]. 
         '''
         while True :
             time.sleep(1)
-            try:
-                self.__slider.SetValue( int( self.__video.GetPercentPos() ) )
-            except TypeError:
-                self.__slider.SetValue( 0 )
-            except:
-                pass
+            if not self.__video.pausado:#salta si está pausado.
+                try:
+                    self.__slider.SetValue( int( self.__video.GetPercentPos() ) )                    
+                except TypeError:
+                    self.__slider.SetValue( 0 )
+                except:
+                    pass
