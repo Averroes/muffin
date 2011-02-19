@@ -10,7 +10,7 @@ Created on 6/12/2010
 '''
 
 from wx import PySimpleApp, InitAllImageHandlers
-import MuffinGUI
+import MuffinGUI, sys
 
 if __name__ == '__main__':
     '''
@@ -28,3 +28,6 @@ if __name__ == '__main__':
     
     print (u'====================================')
     print (u'Finalizando Muffin Translator')
+    
+    sys.exit(0)
+

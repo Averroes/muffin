@@ -7,7 +7,7 @@ Created on 6/12/2010
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
-import wx, os.path
+import wx#, os.path
 import VideoMplayer
 import MuffinText, MuffinDics
 
@@ -157,6 +157,7 @@ class MuffinFrame(wx.Frame):
     #Muestra el about
     def onAbout(self, event):
         AboutFrame().Show()
+        
         
         
 # end of class MuffinFrame
