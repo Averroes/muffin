@@ -7,7 +7,7 @@ Created on 6/12/2010
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
-import wx#, os.path
+import wx, os, sys
 import VideoMplayer
 import MuffinText, MuffinDics
 
@@ -30,7 +30,7 @@ class MuffinFrame(wx.Frame):
         self.panelVideo = wx.Panel(self, -1)
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
-        dir = '.'
+        dir = os.path.abspath( os.path.dirname(sys.argv[0]) )#copypaste :)
         
         # Parte del Video
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
