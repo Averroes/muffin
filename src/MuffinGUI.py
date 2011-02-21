@@ -73,7 +73,7 @@ class MuffinFrame(wx.Frame):
         wxAbout=wxglade_tmp_menu.Append(wx.NewId(), 
                                             "Acerca de...", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.onAbout, wxAbout)
-        #self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
         #OJO, ESTO SE PONE EN LA VERSIÓN 0.2.0!!!!!
         
         self.SetMenuBar(self.Muffin_menubar)
@@ -165,9 +165,51 @@ class MuffinFrame(wx.Frame):
 
 #---About Window
 class AboutFrame(wx.Frame):
-
-    title = "About this program"
-
+    '''
+    Ventana del Acerca de.
+    '''
     def __init__(self):
-        wx.Frame.__init__(self, wx.GetApp().TopWindow, title=self.title)
+        # begin wxGlade: MyFrame.__init__
+        #kwds["style"] = wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN
+        wx.Frame.__init__(self, wx.GetApp().TopWindow, title="", style=wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN)
+        self.label_1 = wx.StaticText(self, -1, "Muffin Translator", style=wx.ALIGN_CENTRE)
+        self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap("/home/erunamo/hum.jpg", wx.BITMAP_TYPE_ANY))
+        self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
+                                       u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
+                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n "+
+                                       u"\nGNU Public License Versión 3 \n", 
+                                       style=wx.TE_MULTILINE|wx.TE_READONLY)
+        self.cerrar = wx.Button(self, -1, "Cerrar")
+
+        self.__set_properties()
+        self.__do_layout()
+        # end wxGlade
+
+    def __set_properties(self):
+        # begin wxGlade: MyFrame.__set_properties
+        self.SetTitle("Acerca de Muffin")
+        self.SetSize((280, 380))
+        self.label_1.SetFont(wx.Font(20, wx.DEFAULT, wx.NORMAL, wx.NORMAL, 0, ""))
+        self.cerrar.SetDefault()
+        self.bitmap_1.SetSize(self.bitmap_1.GetBestSize())
         self.Center()
+        # end wxGlade
+
+    def __do_layout(self):
+        # begin wxGlade: MyFrame.__do_layout
+        sizer_1 = wx.BoxSizer(wx.VERTICAL)
+        sizer_2 = wx.BoxSizer(wx.VERTICAL)
+        sizer_2.Add(self.label_1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
+        sizer_2.Add(self.bitmap_1, 3, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
+        sizer_2.Add(self.text_ctrl_1, 1, wx.EXPAND, 0)
+        sizer_2.Add(self.cerrar, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 10)
+        sizer_1.Add(sizer_2, 1, wx.EXPAND, 0)
+        self.SetSizer(sizer_1)
+        self.Layout()
+        # end wxGlade
+        
+        self.cerrar.Bind(wx.EVT_BUTTON, self._close)
+
+# end of class MyFrame
+    def _close(self, event):
+        self.Close()
