@@ -29,24 +29,26 @@ class MuffinFrame(wx.Frame):
         self.pestanaDiccionarios = MuffinDics.DiccionariosTab(self.panelDiccionarios)#
         self.panelVideo = wx.Panel(self, -1)
         
-        self.texto = MuffinText.MuffinText(self.panelTexto)
-        dir = os.path.abspath( os.path.dirname(sys.argv[0]) )#copypaste :)
         
+        self.texto = MuffinText.MuffinText(self.panelTexto)
+        self.dir = os.path.abspath( os.path.dirname(sys.argv[0]) )#copypaste :)
+        
+
         # Parte del Video
         self.PosicionVideo = wx.Slider(self.panelVideo, -1, 0, 0, 99)
         self.VideoMplayer = VideoMplayer.VideoMplayer(self.panelVideo, self.PosicionVideo) #wx.Panel(self.panelVideo, -1)
         self.botonPlay = wx.BitmapButton(self.panelVideo, -1, 
-                                         wx.Bitmap(dir+"/img/play.png", wx.BITMAP_TYPE_ANY))
+                                         wx.Bitmap(self.dir+"/img/play.png", wx.BITMAP_TYPE_ANY))
         self.botonStop = wx.BitmapButton(self.panelVideo, -1, 
-                                         wx.Bitmap(dir+"/img/stop.png", wx.BITMAP_TYPE_ANY))
+                                         wx.Bitmap(self.dir+"/img/stop.png", wx.BITMAP_TYPE_ANY))
         self.botonAtras = wx.BitmapButton(self.panelVideo, -1, 
-                                          wx.Bitmap(dir+"/img/atras.png", wx.BITMAP_TYPE_ANY))
+                                          wx.Bitmap(self.dir+"/img/atras.png", wx.BITMAP_TYPE_ANY))
         self.botonAdelante = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap(dir+"/img/adelante.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(self.dir+"/img/adelante.png", wx.BITMAP_TYPE_ANY))
         self.volumenUp = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap(dir+"/img/vol_up.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(self.dir+"/img/vol_up.png", wx.BITMAP_TYPE_ANY))
         self.volumenDown = wx.BitmapButton(self.panelVideo, -1, 
-                                             wx.Bitmap(dir+"/img/vol_down.png", wx.BITMAP_TYPE_ANY))
+                                             wx.Bitmap(self.dir+"/img/vol_down.png", wx.BITMAP_TYPE_ANY))
         # Fin Parte del Video
         
         # Menu Bar
@@ -156,8 +158,10 @@ class MuffinFrame(wx.Frame):
     
     #Muestra el about
     def onAbout(self, event):
-        AboutFrame().Show()
-        
+        #AboutFrame(dir+"/img/muffin_about.png").Show()
+        #self.about.Show()
+        #_img=dir+"/img/muffin_about.png"
+        AboutFrame(img=self.dir+"/img/muffin_about.png").Show()
         
         
 # end of class MuffinFrame
@@ -168,12 +172,15 @@ class AboutFrame(wx.Frame):
     '''
     Ventana del Acerca de.
     '''
-    def __init__(self):
+    def __init__(self, img):
+        '''
+        Recibe imagen del about 278 x 222 px
+        '''
         # begin wxGlade: MyFrame.__init__
         #kwds["style"] = wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN
         wx.Frame.__init__(self, wx.GetApp().TopWindow, title="", style=wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN)
         self.label_1 = wx.StaticText(self, -1, "Muffin Translator", style=wx.ALIGN_CENTRE)
-        self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap("/home/erunamo/hum.jpg", wx.BITMAP_TYPE_ANY))
+        self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(img, wx.BITMAP_TYPE_ANY))
         self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
                                        u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
                                        u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n "+
