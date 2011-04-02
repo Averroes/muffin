@@ -61,8 +61,10 @@ class MuffinFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
         wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
-        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto como...", "", wx.ITEM_NORMAL)
-        self.Bind(wx.EVT_MENU, self.texto.onSaveFileWhit, wxGuardarTexto)
+        wxGuardarTextoComo=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto como...", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.texto.onSaveFileWhit, wxGuardarTextoComo)
+        wxSalir=wxglade_tmp_menu.Append(wx.NewId(), "Salir", "", wx.ITEM_NORMAL)#
+        self.Bind(wx.EVT_MENU, self.onClose, wxSalir)
         self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
         
         wxglade_tmp_menu = wx.Menu()
@@ -163,6 +165,9 @@ class MuffinFrame(wx.Frame):
         #_img=dir+"/img/muffin_about.png"
         AboutFrame(img=self.dir+"/img/muffin_about.png").Show()
         
+    def onClose(self, event):
+        self.Close()
+        
         
 # end of class MuffinFrame
 
@@ -183,7 +188,7 @@ class AboutFrame(wx.Frame):
         self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(img, wx.BITMAP_TYPE_ANY))
         self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
                                        u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
-                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n "+
+                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n-etc... :)\n "+
                                        u"\nGNU Public License Versión 3 \n", 
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")

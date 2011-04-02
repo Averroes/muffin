@@ -35,7 +35,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         self.__volumen=100
         self.pausado=True#comienza pausado
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
-        self.sDaem=sliderDaemon(self.sliderVideo, self)
+        self.sDaem=sliderDaemon(self.sliderVideo, self)#BUGGG!!
         
         
     def __openVideo(self, video_path2):
@@ -64,7 +64,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         un font asignado (más que todo en windows).
         '''
     
-        self.pausado=False
+        self.pausado, self.sDaem.pausa=False
         self.Start(self.video_path, _argumentos )
         print (u"& Abriendo: "+ self.video_path)
         self.sliderVideo.SetValue(0)
@@ -105,7 +105,7 @@ class VideoMplayer(mpc.MplayerCtrl):
             print (u"¡¡no hay proceso de Mplayer!!")
             self.__start()    
         else:
-            self.pausado = not self.pausado
+            self.pausado, self.sDaem.pausa = not self.pausado
             self.Pause()#despausa
             #print ('pausa')
             
@@ -174,6 +174,7 @@ class sliderDaemon(threading.Thread):
         self.setDaemon(True)
         self.__slider=_slider
         self.__video=_video
+        self.pausa=True
         self.start()        
         
     def run(self):
@@ -182,11 +183,14 @@ class sliderDaemon(threading.Thread):
         está pausado, no hace nada [Fix "saltitos"]. 
         '''
         while True :
-            time.sleep(1)
-            if not self.__video.pausado:#salta si está pausado.
-                try:
-                    self.__slider.SetValue( int( self.__video.GetPercentPos() ) )                    
-                except TypeError:
-                    self.__slider.SetValue( 0 )
-                except:
-                    pass
+            try:
+                time.sleep(1)
+                if not self.pausa:#salta si está pausado.
+                    try:
+                        self.__slider.SetValue( int( self.__video.GetPercentPos() ) )                    
+                    except TypeError:
+                        self.__slider.SetValue( 0 )
+                    except:
+                        pass
+            except:
+                pass
