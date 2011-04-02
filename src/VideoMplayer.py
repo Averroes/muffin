@@ -10,7 +10,7 @@ Created on 6/12/2010
 import wx
 import os
 import MplayerCtrl as mpc
-import threading, time
+#import threading, time
 
 #----Variables globales----
 if os.name == 'nt':
@@ -33,9 +33,10 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         self.padre, self.sliderVideo = parent, _sliderVideo
         self.__volumen=100
+        self.__valorOSD=2
         self.pausado=True#comienza pausado
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
-        self.sDaem=sliderDaemon(self.sliderVideo, self)#BUGGG!!
+        #self.sDaem=sliderDaemon(self.sliderVideo, self)#BUGGG!!
         
         
     def __openVideo(self, video_path2):
@@ -64,12 +65,12 @@ class VideoMplayer(mpc.MplayerCtrl):
         un font asignado (más que todo en windows).
         '''
     
-        self.pausado, self.sDaem.pausa=False
+        #self.pausado, self.sDaem.pausa=False, False
         self.Start(self.video_path, _argumentos )
         print (u"& Abriendo: "+ self.video_path)
         self.sliderVideo.SetValue(0)
         self.__volumen=100
-        self.Osd(2)
+        self.Osd( self.__valorOSD )#2 por defecto
         
         
     #============Manejo de eventos==============
@@ -105,7 +106,8 @@ class VideoMplayer(mpc.MplayerCtrl):
             print (u"¡¡no hay proceso de Mplayer!!")
             self.__start()    
         else:
-            self.pausado, self.sDaem.pausa = not self.pausado
+            self.setSlider()
+            #self.pausado, self.sDaem.pausa = not self.pausado, not self.pausado
             self.Pause()#despausa
             #print ('pausa')
             
@@ -118,12 +120,17 @@ class VideoMplayer(mpc.MplayerCtrl):
     
     def onAdvanceVideo(self, event, time=5):
         self.Seek(unicode(time))
+        self.setSlider()
     
     def onBackVideo(self, event, time=-5):
         self.Seek(unicode(time))
+        self.setSlider()
         
         
     def onKeyPuase(self, event):
+        '''
+        Manejo de reproducción del video desde el teclado.
+        '''
         #print event.GetKeyCode()
         if event.GetKeyCode() == wx.WXK_ESCAPE:
             #print ("**Pausa, tecla ESC desapretada...**")
@@ -138,10 +145,23 @@ class VideoMplayer(mpc.MplayerCtrl):
         
     #-----Eventos Slider-----
     def setPos(self, event):
+        '''
+        Cambia la posición del video cuando se selecciona el slider.
+        '''
         try:
             self.Seek(self.sliderVideo.GetValue(), 1)#1=porcentaje
         except:
             pass
+    
+    def setOSD(self, event):
+        '''
+        sirve para quitar el tiempo en el video.
+        '''
+        self.__valorOSD = 1 if(self.__valorOSD==2)else 2
+        self.Osd( self.__valorOSD )
+        
+    def setSlider(self):
+        self.sliderVideo.SetValue( int( self.GetPercentPos() ) )
         
         
     #----Eventos Slider Audio
@@ -162,7 +182,9 @@ class VideoMplayer(mpc.MplayerCtrl):
             print ('Min vol')
             
          
-         
+"""
+#OJO, ESTO LO DEJO COMO HISTORIA, PERO YA NO LO ESTOY USANDO
+
 #---Daemon del slider del video----
 class sliderDaemon(threading.Thread):
     '''
@@ -194,3 +216,5 @@ class sliderDaemon(threading.Thread):
                         pass
             except:
                 pass
+                
+"""

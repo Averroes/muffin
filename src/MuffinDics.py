@@ -134,7 +134,7 @@ def GoogleTranslator(objeto):
             objeto.conexion.SetLabel(u"Falló la conexión")
         else:
             objeto.conexion.SetLabel(u"Finalizado.")
-            objeto.respuesta.SetLabel(unicode(trans_dict['responseData']['translatedText']))
+            objeto.respuesta.SetLabel(unicode(text+':\n ->'+trans_dict['responseData']['translatedText']))
     else:#Si está vacío
         objeto.respuesta.SetLabel(u"Aquí saldrá la respuesta a su consulta")
 

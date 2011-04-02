@@ -71,6 +71,8 @@ class MuffinFrame(wx.Frame):
         wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
                                             "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadSub, wxSubtitulo)
+        wxTiempo=wxglade_tmp_menu.Append(wx.NewId(), "Quitar/Poner tiempo en pantalla", "", wx.ITEM_NORMAL)
+        self.Bind(wx.EVT_MENU, self.VideoMplayer.setOSD, wxTiempo)
         self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
 
         wxglade_tmp_menu = wx.Menu()
@@ -166,6 +168,7 @@ class MuffinFrame(wx.Frame):
         AboutFrame(img=self.dir+"/img/muffin_about.png").Show()
         
     def onClose(self, event):
+        self.VideoMplayer.Destroy()
         self.Close()
         
         
@@ -188,7 +191,7 @@ class AboutFrame(wx.Frame):
         self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(img, wx.BITMAP_TYPE_ANY))
         self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
                                        u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
-                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n-etc... :)\n "+
+                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n- etc... :)\n "+
                                        u"\nGNU Public License Versión 3 \n", 
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")
