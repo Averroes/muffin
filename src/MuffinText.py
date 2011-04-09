@@ -7,8 +7,7 @@ Created on 15/01/2011
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
-import wx
-import os
+import wx, os
 import threading, time
 import codecs
 
@@ -89,8 +88,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
         
     #Evento para abrir Archivos
     def onLoadFile(self, event):
-        #if self.tipo_nuevo:
-            dlg = wx.FileDialog(None, message="Seleccione un archivo de texto",
+            dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.OPEN | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
@@ -100,7 +98,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
                 
     #Evento para "Guardar Archivo como..."
     def onSaveFileWhit(self, event):
-            dlg = wx.FileDialog(None, message="Guarde como un archivo de texto",
+            dlg = wx.FileDialog(None, message=u"Guarde como un archivo de texto",
                                 defaultDir=os.getcwd(), defaultFile=".txt",
                                 style=wx.SAVE | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
@@ -134,7 +132,7 @@ class AutoGuardado(threading.Thread):
                 self.__wxText.SaveFile(self.__wxText.path)
                 print (u"» Guardado Automatico...(30seg) "+self.getName() )
             else:
-                print (self.getName()+" is dead X.x")
+                print (unicode( self.getName()+" is dead X.x") )
                 break
     
     def kill(self):
@@ -142,6 +140,6 @@ class AutoGuardado(threading.Thread):
         Hace que el bucle se termine en la proxima iteración.
         '''
         self.seguir_guardando=False
-        print (self.getName()+" pronto... morirá u.u")
+        print (unicode( self.getName()+" pronto... morirá u.u") )
         #self.join()
 

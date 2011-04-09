@@ -55,31 +55,31 @@ class MuffinFrame(wx.Frame):
         self.Muffin_menubar = wx.MenuBar()
         
         wxglade_tmp_menu = wx.Menu()
-        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), "Abrir video", "", wx.ITEM_NORMAL)
+        wxAbrirVideo=wxglade_tmp_menu.Append(wx.NewId(), u"Abrir video", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadFile, wxAbrirVideo)
-        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), "Abrir texto", "", wx.ITEM_NORMAL)
+        wxAbrirTexto=wxglade_tmp_menu.Append(wx.NewId(), u"Abrir texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onLoadFile, wxAbrirTexto)
-        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto", "", wx.ITEM_NORMAL)
+        wxGuardarTexto=wxglade_tmp_menu.Append(wx.NewId(), u"Guardar texto", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onSaveFile, wxGuardarTexto)
-        wxGuardarTextoComo=wxglade_tmp_menu.Append(wx.NewId(), "Guardar texto como...", "", wx.ITEM_NORMAL)
+        wxGuardarTextoComo=wxglade_tmp_menu.Append(wx.NewId(), u"Guardar texto como...", u"", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.texto.onSaveFileWhit, wxGuardarTextoComo)
-        wxSalir=wxglade_tmp_menu.Append(wx.NewId(), "Salir", "", wx.ITEM_NORMAL)#
+        wxSalir=wxglade_tmp_menu.Append(wx.NewId(), u"Salir", "", wx.ITEM_NORMAL)#
         self.Bind(wx.EVT_MENU, self.onClose, wxSalir)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Archivo")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, u"Archivo")
         
         wxglade_tmp_menu = wx.Menu()
         wxSubtitulo=wxglade_tmp_menu.Append(wx.NewId(), 
-                                            "Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
+                                            u"Cargar Sub del video(MKV)", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.VideoMplayer.onLoadSub, wxSubtitulo)
-        wxTiempo=wxglade_tmp_menu.Append(wx.NewId(), "Quitar/Poner tiempo en pantalla", "", wx.ITEM_NORMAL)
+        wxTiempo=wxglade_tmp_menu.Append(wx.NewId(), u"Quitar/Poner tiempo en pantalla", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.VideoMplayer.setOSD, wxTiempo)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Opciones de video")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, u"Opciones de video")
 
         wxglade_tmp_menu = wx.Menu()
         wxAbout=wxglade_tmp_menu.Append(wx.NewId(), 
-                                            "Acerca de...", "", wx.ITEM_NORMAL)
+                                            u"Acerca de...", "", wx.ITEM_NORMAL)
         self.Bind(wx.EVT_MENU, self.onAbout, wxAbout)
-        self.Muffin_menubar.Append(wxglade_tmp_menu, "Ayuda")
+        self.Muffin_menubar.Append(wxglade_tmp_menu, u"Ayuda")
         #OJO, ESTO SE PONE EN LA VERSIÓN 0.2.0!!!!!
         
         self.SetMenuBar(self.Muffin_menubar)
@@ -93,7 +93,7 @@ class MuffinFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle("Muffin Translator - Beta version")
+        self.SetTitle(u"Muffin Translator - Beta version")
         self.SetSize((800, 600))
         self.SetMinSize((800, 600))
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
@@ -202,7 +202,7 @@ class AboutFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MyFrame.__set_properties
-        self.SetTitle("Acerca de Muffin")
+        self.SetTitle(u"Acerca de Muffin")
         self.SetSize((280, 380))
         self.label_1.SetFont(wx.Font(20, wx.DEFAULT, wx.NORMAL, wx.NORMAL, 0, ""))
         self.cerrar.SetDefault()

@@ -15,7 +15,7 @@ from urllib import urlencode#, quote
 try:
     import json
 except ImportError:
-    print('Necesitas instalar el paquete python-json')
+    print(u'Necesitas instalar el paquete python-json')
 
 
 class DiccionariosTab(wx.Notebook):
@@ -44,13 +44,13 @@ class DiccionariosTab(wx.Notebook):
         self.__servicios()
         
     def __servicios(self):
-        self.home=wx.StaticText(self, -1, self.faq, name='Home')
+        self.home=wx.StaticText(self, -1, self.faq, name=u"Home")
         self.AddPage(self.home, self.home.Name)
-        self.rae=DiccGenerico(self, "RAE", RAE )#, nombre metodo de envio y respuesta)
+        self.rae=DiccGenerico(self, u"RAE", RAE )#, nombre metodo de envio y respuesta)
         self.AddPage(self.rae, self.rae.Name)
-        self.wr=DiccGenerico(self, "WR", WordReference )#, nombre metodo de envio y respuesta)
+        self.wr=DiccGenerico(self, u"WR", WordReference )#, nombre metodo de envio y respuesta)
         self.AddPage(self.wr, self.wr.Name)
-        self.google=DiccGenerico(self, "Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
+        self.google=DiccGenerico(self, u"Google", GoogleTranslator)#, nombre metodo de envio y respuesta)
         self.AddPage(self.google, self.google.Name) 
         
 #------------------
@@ -59,7 +59,7 @@ class DiccGenerico(wx.Panel):
     DiccGenerico es un wx.Panel, que crea un conjunto de widgets genericos,
     su intención es la de funcionar para cualquier tipo de consulta online.
     '''
-    def __init__(self, _padre, _nombre="servicio?", f_consulta=None):
+    def __init__(self, _padre, _nombre=u"servicio?", f_consulta=None):
         '''
         _padre=padre de wx.Panel; _nombre=nombre del servicio; 
         f_consulta= función que hará la consulta en internet.
@@ -67,8 +67,8 @@ class DiccGenerico(wx.Panel):
         wx.Panel.__init__(self, _padre, -1, name=_nombre)
         
         self.nombre_servicio = wx.StaticText(self, -1, _nombre)
-        self.pregunta = wx.TextCtrl(self, -1, "", style=wx.TE_PROCESS_ENTER|wx.TE_CENTRE)
-        self.button_enviar = wx.Button(self, -1, "OK")
+        self.pregunta = wx.TextCtrl(self, -1, u"", style=wx.TE_PROCESS_ENTER|wx.TE_CENTRE)
+        self.button_enviar = wx.Button(self, -1, u"OK")
         self.respuesta = wx.StaticText(self, -1, u"Aquí saldrá la respuesta a su consulta")
         self.conexion = wx.StaticText(self, -1, u"Información de conexión...")
         self.func_consulta=f_consulta#función que consulta la palabra en internet

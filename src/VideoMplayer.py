@@ -10,7 +10,7 @@ Created on 6/12/2010
 import wx
 import os
 import MplayerCtrl as mpc
-#import threading, time
+
 
 #----Variables globales----
 if os.name == 'nt':
@@ -34,9 +34,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         self.padre, self.sliderVideo = parent, _sliderVideo
         self.__volumen=100
         self.__valorOSD=2
-        self.pausado=True#comienza pausado
         mpc.MplayerCtrl.__init__(self, self.padre, -1, mplayer_path)#, mplayer_args=("-ass"," -osdlevel 3 ",) )
-        #self.sDaem=sliderDaemon(self.sliderVideo, self)#BUGGG!!
         
         
     def __openVideo(self, video_path2):
@@ -64,8 +62,6 @@ class VideoMplayer(mpc.MplayerCtrl):
         ¡¡OJO!!: si el OSD no funciona, revisar si tiene 
         un font asignado (más que todo en windows).
         '''
-    
-        #self.pausado, self.sDaem.pausa=False, False
         self.Start(self.video_path, _argumentos )
         print (u"& Abriendo: "+ self.video_path)
         self.sliderVideo.SetValue(0)
@@ -80,7 +76,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         '''
         Cargador de archivos de video.
         '''
-        dlg = wx.FileDialog(None, message="Seleccione un archivo de video",
+        dlg = wx.FileDialog(None, message=u"Seleccione un archivo de video",
                             defaultDir=os.getcwd(), defaultFile="",
                             style=wx.OPEN | wx.CHANGE_DIR )
         if dlg.ShowModal() == wx.ID_OK:
@@ -92,7 +88,7 @@ class VideoMplayer(mpc.MplayerCtrl):
     
     def onLoadSub(self, event):
         '''
-        Evento que carga los subtitulos .ass de un video.
+        Evento que carga los subtitulos .ASS de un video.
         '''
         self.onStopVideo(event)
         self.__start(_argumentos=(u"-ass",) )
@@ -107,7 +103,6 @@ class VideoMplayer(mpc.MplayerCtrl):
             self.__start()    
         else:
             self.setSlider()
-            #self.pausado, self.sDaem.pausa = not self.pausado, not self.pausado
             self.Pause()#despausa
             #print ('pausa')
             
@@ -155,16 +150,19 @@ class VideoMplayer(mpc.MplayerCtrl):
     
     def setOSD(self, event):
         '''
-        sirve para quitar el tiempo en el video.
+        sirve para quitar o poner el tiempo en el video.
         '''
         self.__valorOSD = 1 if(self.__valorOSD==2)else 2
         self.Osd( self.__valorOSD )
         
     def setSlider(self):
+        '''
+        Actualiza la posición(tiempo) del video en el slider.
+        '''
         self.sliderVideo.SetValue( int( self.GetPercentPos() ) )
         
         
-    #----Eventos Slider Audio
+    #----Eventos Audio
     def volUp(self, event):
         if self.__volumen < 100:
             self.__volumen= self.__volumen+10
