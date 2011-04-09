@@ -93,7 +93,7 @@ class MuffinFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle("Muffin Translator - Alpha version")
+        self.SetTitle("Muffin Translator - Beta version")
         self.SetSize((800, 600))
         self.SetMinSize((800, 600))
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
