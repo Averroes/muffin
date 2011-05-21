@@ -8,6 +8,7 @@ Created on 6/12/2010
 @web: http://code.google.com/p/muffin/
 '''
 import wx, os, sys
+import webbrowser as wb
 import VideoMplayer
 import MuffinText, MuffinDics
 
@@ -28,6 +29,7 @@ class MuffinFrame(wx.Frame):
         self.panelDiccionarios = wx.Panel(self, -1)
         self.pestanaDiccionarios = MuffinDics.DiccionariosTab(self.panelDiccionarios)#
         self.panelVideo = wx.Panel(self, -1)
+        
         
         
         self.texto = MuffinText.MuffinText(self.panelTexto)
@@ -92,10 +94,15 @@ class MuffinFrame(wx.Frame):
         # end wxGlade
 
     def __set_properties(self):
+        #icono del mufin
+        _icono = wx.EmptyIcon()
+        _icono.CopyFromBitmap(wx.Bitmap(self.dir+"/img/muffin_ico.png", wx.BITMAP_TYPE_ANY))
+        
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle(u"Muffin Translator - Beta version")
+        self.SetTitle(u"Muffin Translator - Versión Beta")
         self.SetSize((800, 600))
-        self.SetMinSize((800, 600))
+        self.SetMinSize((800, 570))
+        self.SetIcon(_icono)
         self.botonPlay.SetSize(self.botonPlay.GetBestSize())
         self.botonStop.SetSize(self.botonStop.GetBestSize())
         self.botonAtras.SetSize(self.botonAtras.GetBestSize())
@@ -195,6 +202,7 @@ class AboutFrame(wx.Frame):
                                        u"\nGNU Public License Versión 3 \n", 
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")
+        self.go_web = wx.Button(self, -1, "Ir a la web")
 
         self.__set_properties()
         self.__do_layout()
@@ -217,14 +225,22 @@ class AboutFrame(wx.Frame):
         sizer_2.Add(self.label_1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
         sizer_2.Add(self.bitmap_1, 3, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
         sizer_2.Add(self.text_ctrl_1, 1, wx.EXPAND, 0)
-        sizer_2.Add(self.cerrar, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 10)
+        sizer_3 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_3.Add(self.cerrar, 1, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 10)
+        sizer_3.Add(self.go_web, 1, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 10)
+        sizer_2.Add(sizer_3, 1, wx.EXPAND, 0)
         sizer_1.Add(sizer_2, 1, wx.EXPAND, 0)
         self.SetSizer(sizer_1)
         self.Layout()
         # end wxGlade
         
         self.cerrar.Bind(wx.EVT_BUTTON, self._close)
+        self.go_web.Bind(wx.EVT_BUTTON, self._go_web)
 
 # end of class MyFrame
     def _close(self, event):
         self.Close()
+    
+    def _go_web(self, event):
+        wb.open(u'http://code.google.com/p/muffin/')
+        

@@ -7,6 +7,7 @@ Created on 15/01/2011
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
+import wx.stc as stc
 import wx, os
 import threading, time
 import codecs
@@ -143,3 +144,6 @@ class AutoGuardado(threading.Thread):
         print (unicode( self.getName()+" pronto... morirá u.u") )
         #self.join()
 
+
+
+#stc.PreStyledTextCtrl()
