@@ -60,7 +60,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         Empieza a reproducir el último video cargado.
         Puede recibir argumentos como una tupla. 
         ¡¡OJO!!: si el OSD no funciona, revisar si tiene 
-        un font asignado (más que todo en windows).
+        un font asignado (más que todo en MS-Windows).
         '''
         self.Start(self.video_path, _argumentos )
         print (u"& Abriendo: "+ self.video_path)
@@ -77,7 +77,7 @@ class VideoMplayer(mpc.MplayerCtrl):
         Cargador de archivos de video.
         '''
         dlg = wx.FileDialog(None, message=u"Seleccione un archivo de video",
-                            defaultDir=os.getcwd(), defaultFile="",
+                            defaultDir=os.path.expanduser('~'), defaultFile="",
                             style=wx.OPEN | wx.CHANGE_DIR )
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()

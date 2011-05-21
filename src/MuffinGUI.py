@@ -99,7 +99,7 @@ class MuffinFrame(wx.Frame):
         _icono.CopyFromBitmap(wx.Bitmap(self.dir+"/img/muffin_ico.png", wx.BITMAP_TYPE_ANY))
         
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle(u"Muffin Translator - Versión Beta")
+        self.SetTitle(u"Muffin Translator - 0.2rc (Release Candidate)")
         self.SetSize((800, 600))
         self.SetMinSize((800, 570))
         self.SetIcon(_icono)
@@ -172,7 +172,7 @@ class MuffinFrame(wx.Frame):
         #AboutFrame(dir+"/img/muffin_about.png").Show()
         #self.about.Show()
         #_img=dir+"/img/muffin_about.png"
-        AboutFrame(img=self.dir+"/img/muffin_about.png").Show()
+        AboutFrame(imgPath=self.dir+"/img/").Show()
         
     def onClose(self, event):
         self.VideoMplayer.Destroy()
@@ -187,7 +187,7 @@ class AboutFrame(wx.Frame):
     '''
     Ventana del Acerca de.
     '''
-    def __init__(self, img):
+    def __init__(self, imgPath):
         '''
         Recibe imagen del about 278 x 222 px
         '''
@@ -195,7 +195,7 @@ class AboutFrame(wx.Frame):
         #kwds["style"] = wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN
         wx.Frame.__init__(self, wx.GetApp().TopWindow, title="", style=wx.CAPTION|wx.NO_BORDER|wx.CLIP_CHILDREN)
         self.label_1 = wx.StaticText(self, -1, "Muffin Translator", style=wx.ALIGN_CENTRE)
-        self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(img, wx.BITMAP_TYPE_ANY))
+        self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(imgPath+"muffin_about.png", wx.BITMAP_TYPE_ANY))
         self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
                                        u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
                                        u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n- etc... :)\n "+
@@ -203,6 +203,8 @@ class AboutFrame(wx.Frame):
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")
         self.go_web = wx.Button(self, -1, "Ir a la web")
+        self._icono = wx.EmptyIcon()
+        self._icono.CopyFromBitmap(wx.Bitmap(imgPath+"muffin_ico.png", wx.BITMAP_TYPE_ANY))
 
         self.__set_properties()
         self.__do_layout()
@@ -212,6 +214,7 @@ class AboutFrame(wx.Frame):
         # begin wxGlade: MyFrame.__set_properties
         self.SetTitle(u"Acerca de Muffin")
         self.SetSize((280, 380))
+        self.SetIcon(self._icono)
         self.label_1.SetFont(wx.Font(20, wx.DEFAULT, wx.NORMAL, wx.NORMAL, 0, ""))
         self.cerrar.SetDefault()
         self.bitmap_1.SetSize(self.bitmap_1.GetBestSize())

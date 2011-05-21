@@ -7,7 +7,8 @@ Created on 15/01/2011
 @summary: Muffin Translator, ayudante para la traducción de anime.
 @web: http://code.google.com/p/muffin/
 '''
-import wx.stc as stc
+
+#import wx.stc as stc
 import wx, os
 import threading, time
 import codecs
@@ -35,8 +36,8 @@ Actor 1: Well do I understand your speech, yet few strangers do so.
 Actor 2: What are you babbling about?
 
 NOTA: Use la tecla 'ESC' para pausar y despausar el video.
-      Puede usar las teclas F1 y F2 para ir 5 segundos atras o adelante en el video.
-      MuffinTranslator ahora tiene sistema de auto-guardado cada 30seg, después de guardar la primer vez.
+      Puedes usar las teclas F1 y F2 para ir 5 segundos atras o adelante en el video.
+      MuffinTranslator tiene un sistema de auto-guardado cada 30seg, después de guardar la primer vez.
       #NO OLVIDES REPORTAR LOS ERRORES EN: http://code.google.com/p/muffin/issues/list"""
                 
         wx.TextCtrl.__init__(self, self.__parent, -1, texto_inicial, style=wx.TE_MULTILINE|wx.HSCROLL)
