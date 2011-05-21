@@ -91,7 +91,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
     #Evento para abrir Archivos
     def onLoadFile(self, event):
             dlg = wx.FileDialog(None, message=u"Seleccione un archivo de texto",
-                                defaultDir=os.getcwd(), defaultFile=".txt",
+                                defaultDir=os.path.expanduser('~'), defaultFile=".txt",
                                 style=wx.OPEN | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
                 path = dlg.GetPath()
@@ -101,7 +101,7 @@ NOTA: Use la tecla 'ESC' para pausar y despausar el video.
     #Evento para "Guardar Archivo como..."
     def onSaveFileWhit(self, event):
             dlg = wx.FileDialog(None, message=u"Guarde como un archivo de texto",
-                                defaultDir=os.getcwd(), defaultFile=".txt",
+                                defaultDir=os.path.expanduser('~'), defaultFile=".txt",
                                 style=wx.SAVE | wx.CHANGE_DIR )
             if dlg.ShowModal() == wx.ID_OK:
                 path = dlg.GetPath()
