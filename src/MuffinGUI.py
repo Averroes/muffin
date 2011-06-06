@@ -96,7 +96,7 @@ class MuffinFrame(wx.Frame):
     def __set_properties(self):
         #icono del mufin
         _icono = wx.EmptyIcon()
-        _icono.CopyFromBitmap(wx.Bitmap(self.dir+"/img/muffin_ico.png", wx.BITMAP_TYPE_ANY))
+        _icono.CopyFromBitmap(wx.Bitmap(self.dir+"/img/muffin.ico", wx.BITMAP_TYPE_ANY))#self.dir+"/img/muffin_ico.png",
         
         # begin wxGlade: MuffinFrame.__set_properties
         self.SetTitle(u"Muffin Translator - 0.2rc (Release Candidate)")
@@ -198,13 +198,14 @@ class AboutFrame(wx.Frame):
         self.bitmap_1 = wx.StaticBitmap(self, -1, wx.Bitmap(imgPath+"muffin_about.png", wx.BITMAP_TYPE_ANY))
         self.text_ctrl_1 = wx.TextCtrl(self, -1, u"Muffin Traslator, un ayudante para la traducción de anime."+
                                        u"\nDesarrollador(es):\nC. Daniel Sanchez R. <ErunamoJAZZ>.\n\nAgradecimientos a:"+
-                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi.\n- etc... :)\n "+
+                                       u"\n- Sefardim.\n- Kamelotusky.\n- Eddotan.\n- Shidomurdok.\n- KuroiHoshi."+
+                                       u"\n- Sakai Eioga.\n- etc... :)\n "+
                                        u"\nGNU Public License Versión 3 \n", 
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")
         self.go_web = wx.Button(self, -1, "Ir a la web")
         self._icono = wx.EmptyIcon()
-        self._icono.CopyFromBitmap(wx.Bitmap(imgPath+"muffin_ico.png", wx.BITMAP_TYPE_ANY))
+        self._icono.CopyFromBitmap(wx.Bitmap(imgPath+"muffin.ico", wx.BITMAP_TYPE_ANY))
 
         self.__set_properties()
         self.__do_layout()

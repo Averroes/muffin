@@ -29,5 +29,6 @@ if __name__ == '__main__':
     print (u'====================================')
     print (u'Finalizando Muffin Translator')
     
-    sys.exit(0)
+
+sys.exit(0)
 

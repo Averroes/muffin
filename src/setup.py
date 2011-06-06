@@ -15,6 +15,7 @@ if os.name == 'nt':
         import py2exe #CAUTION
     except ImportError:
         print(">>> Falta py2exe <<<")
+        os.sys.exit(1)
     from glob import glob
     
     data_files = [("Microsoft.VC90.CRT", glob(r'C:\Users\Admi-Siul\Documents\Aegisub portable\Microsoft.VC90.CRT\*.*'))]
@@ -22,14 +23,14 @@ if os.name == 'nt':
     setup(data_files=data_files,
           name=u"Muffin Translator",
           version=num_version,
-          description=u"Sistema unificado de apoyo para la traducción de anime",
+          description=u"Muffin Translator. Sistema unificado de apoyo para la traducción de anime.",
           author=u"C. Daniel Sanchez R. (ErunamoJAZZ)",
           author_email=u"anonimato1990@gmail.com",
           url=u"http://code.google.com/p/muffin/",
           license=u"GPLv3",
           scripts=["MuffinMain.py"],
           py_modules=["MuffinGUI","MuffinText","VideoMplayer","wx","MplayerCtrl","MuffinDics"],
-          console=["MuffinMain.py"], 
+          console=[{"script":"MuffinMain.py", "icon_resources": [(0, "img/muffin.ico")]  }],
           options={"py2exe": {"bundle_files": 1}},
           zipfile=None
           )
@@ -37,7 +38,7 @@ else:
     setup(data_files=data_files,
           name=u"Muffin Translator",
           version=num_version,
-          description=u"Sistema unificado de apoyo para la traducción de anime",
+          description=u"Muffin Translator. Sistema unificado de apoyo para la traducción de anime.",
           author=u"C. Daniel Sanchez R. (ErunamoJAZZ)",
           author_email=u"anonimato1990@gmail.com",
           url=u"http://code.google.com/p/muffin/",
