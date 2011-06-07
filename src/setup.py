@@ -8,7 +8,7 @@ Este Setup está hecho para usarse con py2exe
 from distutils.core import setup 
 import os
 
-num_version=u"0.2rc2"
+num_version=u"0.2"
 
 if os.name == 'nt':
     try:
@@ -31,8 +31,8 @@ if os.name == 'nt':
           scripts=["MuffinMain.py"],
           py_modules=["MuffinGUI","MuffinText","VideoMplayer","wx","MplayerCtrl","MuffinDics"],
           console=[{"script":"MuffinMain.py", "icon_resources": [(0, "img/muffin.ico")]  }],
-          options={"py2exe": {"bundle_files": 1}},
-          zipfile=None
+          zipfile=None,
+          options={"py2exe": {"bundle_files": 1}}
           )
 else:
     setup(data_files=data_files,
