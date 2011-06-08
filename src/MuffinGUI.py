@@ -203,7 +203,7 @@ class AboutFrame(wx.Frame):
                                        style=wx.TE_MULTILINE|wx.TE_READONLY)
         self.cerrar = wx.Button(self, -1, "Cerrar")
         self.go_web = wx.Button(self, -1, "Ir a la web")
-        self._icono = wx.Icon(self.dir+"/img/muffin.ico", wx.BITMAP_TYPE_ICO)
+        self._icono = wx.Icon(imgPath+"muffin.ico", wx.BITMAP_TYPE_ICO)
 
         self.__set_properties()
         self.__do_layout()
