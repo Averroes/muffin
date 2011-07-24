@@ -1,0 +1,3 @@
+#!/bin/sh
+#Muffins are sweet ^o^
+python /usr/share/muffin/src/MuffinMain.py

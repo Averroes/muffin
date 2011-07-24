@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Muffin Translator
+GenericName=Subtitle Editor
+Comment=Assistant for the translation of anime and movies.
+Comment[es]=Ayudante para la traducción de anime y películas.
+Icon=/usr/share/muffin/src/img/muffin_ico.png
+Exec=/usr/bin/muffin
+Terminal=true
+Type=Application
+Categories=AudioVideo;Audio;Video;Player;AudioVideoEditing;
+StartupNotify=False
