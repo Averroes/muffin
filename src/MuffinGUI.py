@@ -98,7 +98,7 @@ class MuffinFrame(wx.Frame):
         _icono = wx.Icon(self.dir+"/img/muffin.ico", wx.BITMAP_TYPE_ICO)
         
         # begin wxGlade: MuffinFrame.__set_properties
-        self.SetTitle(u"Muffin Translator - 0.2rc2 (Release Candidate 2)")
+        self.SetTitle(u"Muffin Translator - 0.2rc3 (Release Candidate 3)")
         self.SetSize((800, 600))
         self.SetMinSize((800, 570))
         self.SetIcon(_icono)
@@ -164,6 +164,7 @@ class MuffinFrame(wx.Frame):
         self.texto.Bind(wx.EVT_KEY_UP, self.VideoMplayer.onKeyPuase)
         
         self.PosicionVideo.Bind(wx.EVT_COMMAND_SCROLL, self.VideoMplayer.setPos)
+        self.Bind(wx.EVT_CLOSE,self.onClose)
 
     
     #Muestra el about
@@ -175,7 +176,7 @@ class MuffinFrame(wx.Frame):
         
     def onClose(self, event):
         self.VideoMplayer.Destroy()
-        self.Close()
+        self.Destroy()
         
         
 # end of class MuffinFrame
